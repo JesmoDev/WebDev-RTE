@@ -1,8 +1,9 @@
 import { LitElement, html, css } from "lit";
 import { customElement, property } from "lit/decorators.js";
+import "./components/editor";
 
-@customElement("my-element")
-export class MyElement extends LitElement {
+@customElement("app-element")
+export class App extends LitElement {
   static styles = [
     css`
       :host {
@@ -11,9 +12,7 @@ export class MyElement extends LitElement {
     `,
   ];
 
-  @property() name = "World";
-
   render() {
-    return html`<h1>Hello, ${this.name}</h1>`;
+    return html`<rte-editor></rte-editor>`;
   }
 }
