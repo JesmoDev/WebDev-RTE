@@ -21,6 +21,10 @@ export class RTEEditor extends LitElement {
       <div>Normal Text</div>
       <code>Code</code> <br />
       <b>Bold text</b> <br />
+      <ol>
+        <li>Ordered</li>
+        <li>List</li>
+      </ol>
       <ul>
         <li>Bullet</li>
         <li>List</li>
