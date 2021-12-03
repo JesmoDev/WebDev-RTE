@@ -46,8 +46,6 @@ export class RTEEditor extends LitElement {
   }
 
   blockSelector(block) {
-    console.log("hallo", block);
-
     switch (block.type) {
       case "paragraph":
         return html`<p>${block.children[0].text}</p>`;
