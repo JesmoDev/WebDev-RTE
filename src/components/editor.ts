@@ -13,7 +13,7 @@ export class RTEEditor extends LitElement {
       }
     `,
   ];
-  private readonly emptyValue = [{ children: [{ text: "asf" }] }];
+  private readonly emptyValue = [{ children: [{ type: "bold", text: "asf" }] }];
 
   private _editor: BaseEditor = createEditor();
 
@@ -22,6 +22,7 @@ export class RTEEditor extends LitElement {
 
   constructor() {
     super();
+
     this._editor.children = this.emptyValue;
     this._editor.selection = {
       anchor: { path: [0, 0], offset: 0 },
@@ -35,20 +36,45 @@ export class RTEEditor extends LitElement {
   };
 
   onKeyDown(event: KeyboardEvent) {
-    event.preventDefault();
+    // console.log(event.key);
+
+    if (event.key === "Backspace") {
+      this._editor.deleteBackward("character");
+      event.preventDefault();
+      this.requestUpdate();
+    }
   }
 
   onInput(event: InputEvent) {
+    event.preventDefault();
     if (event.data) {
-      this._editor.insertText(event.data);
+      Transforms.insertText(this._editor, event.data);
     }
+    console.clear();
+    console.log(this._editor.children);
     this.requestUpdate();
   }
 
+  onClick() {
+    const selection = this.shadowRoot!.getSelection(); //Only Works in Chrome
+
+    Transforms.select(this._editor, {
+      anchor: { path: [0, 0], offset: selection.anchorOffset },
+      focus: { path: [0, 0], offset: selection.focusOffset },
+    });
+    // this._editor.selection = selection.;
+    console.log("selection: ", selection);
+  }
+
   blockSelector(block) {
-    switch (block.type) {
+    console.log(block);
+
+    switch (block.children[0].type) {
       case "paragraph":
         return html`<p>${block.children[0].text}</p>`;
+
+      case "bold":
+        return html`<b>${block.children[0].text}</b>`;
 
       default:
         return html`${block.children[0].text}`;
@@ -56,10 +82,21 @@ export class RTEEditor extends LitElement {
   }
 
   render() {
-    return html`<div id="editor" contenteditable="true" @input=${this.onInput}>
-      ${this._editor.children.map((block) => {
-        return this.blockSelector(block);
-      })}
-    </div>`;
+    return html`<div
+        id="editor"
+        contenteditable="true"
+        @input=${this.onInput}
+        @keydown=${this.onKeyDown}
+        @click=${this.onClick}
+      >
+        ${this._editor.children.map((block) => {
+          return this.blockSelector(block);
+        })}
+      </div>
+      <div>
+        ${this._editor.children.map((block) => {
+          return this.blockSelector(block);
+        })}
+      </div>`;
   }
 }
