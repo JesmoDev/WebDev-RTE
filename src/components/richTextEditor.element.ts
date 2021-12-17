@@ -48,9 +48,16 @@ export class RichTextEditorElement extends LitElement {
         position: sticky;
         width: 200px;
         height: 500px;
-        background: red;
-        top: 50%;
-        transform: translateY(-50%);
+        opacity: 0.5;
+        top: 175px;
+        border: 1px solid black;
+        /* top: 50%;
+        transform: translateY(-50%); */
+      }
+
+      #content-overview:hover,
+      #shortcut-list:hover {
+        opacity: 1;
       }
 
       #content-overview {
@@ -419,7 +426,7 @@ export class RichTextEditorElement extends LitElement {
       <div id="wrapper">
         <div id="content-overview">Content overview</div>
         <div id="editor" @keydown=${this.onKeydown}></div>
-        <div id="shortcut-list">Searchable Shortcut List</div>
+        <div id="shortcut-list">Searchable Shortcut List <input /></div>
       </div>`;
   }
 }
