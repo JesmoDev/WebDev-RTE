@@ -262,8 +262,11 @@ export class RichTextEditorElement extends LitElement {
   blockMenuOpen = false;
 
   // NON STATE VARIABLES //
-  lastSlashPosition = 0;
+  lastSlashPosition = 0; // used to know where the / is when trying to close the block menu by deleting the / that triggered it
+  lastCaretPosition = 0; // used to return to the correct position when refocusing the editor
+
   // Implement aliases and more
+  //TODO: Move this into the blockMenu or a separate container file
   blockList = [
     {
       display: "Heading 1",
@@ -303,12 +306,23 @@ export class RichTextEditorElement extends LitElement {
       content: this.startContent,
     });
     this.editor.on("update", () => this.onEditorUpdate());
+    this.editor.on("focus", () => this.onEditorFocus());
+    this.editor.on("blur", () => this.onEditorBlur());
 
     this.editor.view.focus();
   }
 
   onEditorUpdate() {
     // this.requestUpdate(); // This is only for the render and JSON previews
+  }
+
+  onEditorFocus() {
+    this.editor.view.focus();
+    this.editor.commands.setTextSelection(this.lastCaretPosition);
+  }
+
+  onEditorBlur() {
+    this.lastCaretPosition = this.getCaretPos;
   }
 
   onKeydown(e: KeyboardEvent) {
@@ -344,6 +358,7 @@ export class RichTextEditorElement extends LitElement {
     }
   }
 
+  //TODO: Move this into the blockMenu
   commandFromBlockMenu(command: Function) {
     // if (
     //   this.hasSelection &&
@@ -401,7 +416,7 @@ export class RichTextEditorElement extends LitElement {
       <div id="wrapper">
         <div id="content-overview">Content overview</div>
         <div id="editor" @keydown=${this.onKeydown}></div>
-        <shortcut-menu></shortcut-menu>
+        <shortcut-menu .editor=${this.editor}></shortcut-menu>
       </div>`;
   }
 }
