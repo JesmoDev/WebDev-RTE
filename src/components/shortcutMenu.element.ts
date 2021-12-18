@@ -1,5 +1,11 @@
-import { LitElement, html, css } from "lit";
+import { CommandManager, Editor } from "@tiptap/core";
+import { LitElement, html, css, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
+import {
+  EditorCommand,
+  getCommands,
+  searchCommands,
+} from "../helpers/editorHelper";
 
 @customElement("shortcut-menu")
 export class ShortcutMenuElement extends LitElement {
@@ -35,13 +41,18 @@ export class ShortcutMenuElement extends LitElement {
         display: flex;
         cursor: pointer;
         padding: 8px 12px;
+        user-select: none;
       }
 
       .shortcut:hover {
         background: grey;
       }
 
-      .shortcut span {
+      .shortcut-name {
+        font-weight: bold;
+      }
+
+      .shortcut-keys {
         text-align: right;
         flex-grow: 1;
       }
@@ -51,28 +62,29 @@ export class ShortcutMenuElement extends LitElement {
   @state()
   search = "";
 
-  @state()
-  //TODO: Move to a separate container file
-  shortCuts: { keys: string; alias: string; description: string }[] = [
-    { keys: "ctrl + b", alias: "bold", description: "toggle text bold" },
-    { keys: "ctrl + i", alias: "italic", description: "toggle text italic" },
-    {
-      keys: "ctrl + alt + 1-3",
-      alias: "heading",
-      description: "toggle headings",
-    },
-  ];
+  @property({ attribute: false })
+  editor: Editor;
 
-  renderShortcutList() {
-    const filteredItems = this.shortCuts.filter((x) =>
-      x.alias.toLocaleLowerCase().includes(this.search)
-    );
+  private renderShortcut(shortcut: EditorCommand): TemplateResult {
+    return html`<div @click=${() => shortcut.command()} class="shortcut">
+      <span class="shortcut-name">${shortcut.name}</span>
+      <span class="shortcut-keys">
+        ${shortcut.keyboardShortcut.map(
+          (key, i) =>
+            html`
+              <span>${key}</span>
+              ${i !== shortcut.keyboardShortcut.length - 1 ? "+" : ""}
+            `
+        )}
+      </span>
+    </div>`;
+  }
+
+  private renderShortcutList() {
+    const filteredItems = searchCommands(this.editor, this.search);
 
     return filteredItems.map(
-      (shortcut) => html`<div class="shortcut">
-        <b>${shortcut.keys}</b>
-        <span>${shortcut.description}</span>
-      </div>`
+      (shortcut) => html`${this.renderShortcut(shortcut)}`
     );
   }
 

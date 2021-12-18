@@ -416,7 +416,7 @@ export class RichTextEditorElement extends LitElement {
       <div id="wrapper">
         <div id="content-overview">Content overview</div>
         <div id="editor" @keydown=${this.onKeydown}></div>
-        <shortcut-menu></shortcut-menu>
+        <shortcut-menu .editor=${this.editor}></shortcut-menu>
       </div>`;
   }
 }
