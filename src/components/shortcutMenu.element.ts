@@ -1,9 +1,9 @@
-import { Editor } from "@tiptap/core";
-import { LitElement, html, css, TemplateResult } from "lit";
-import { customElement, property, state } from "lit/decorators.js";
-import { EditorCommand, searchCommands } from "../helpers/editorHelper";
+import { Editor } from '@tiptap/core';
+import { LitElement, html, css, TemplateResult } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import { EditorCommand, searchCommands } from '../helpers/editorHelper';
 
-@customElement("shortcut-menu")
+@customElement('shortcut-menu')
 export class ShortcutMenuElement extends LitElement {
   static styles = [
     css`
@@ -56,7 +56,7 @@ export class ShortcutMenuElement extends LitElement {
   ];
 
   @state()
-  private search = "";
+  private search = '';
 
   @property({ attribute: false })
   public editor: Editor;
@@ -69,7 +69,7 @@ export class ShortcutMenuElement extends LitElement {
           (key, i) =>
             html`
               <span>${key}</span>
-              ${i !== editorCommand.keyboardShortcut.length - 1 ? "+" : ""}
+              ${i !== editorCommand.keyboardShortcut.length - 1 ? '+' : ''}
             `
         )}
       </span>

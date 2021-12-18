@@ -1,18 +1,18 @@
-import "../main";
-import { LitElement, html, css, TemplateResult } from "lit";
-import { customElement, query, state } from "lit/decorators.js";
-import { Editor } from "@tiptap/core";
-import StarterKit from "@tiptap/starter-kit";
-import { BlockMenuElement } from "./blockMenu.element";
-import Underline from "@tiptap/extension-underline";
-import exampleContent from "../helpers/exampleContent";
+import '../main';
+import { LitElement, html, css, TemplateResult } from 'lit';
+import { customElement, query, state } from 'lit/decorators.js';
+import { Editor } from '@tiptap/core';
+import StarterKit from '@tiptap/starter-kit';
+import { BlockMenuElement } from './blockMenu.element';
+import Underline from '@tiptap/extension-underline';
+import exampleContent from '../helpers/exampleContent';
 
-@customElement("rich-text-editor")
+@customElement('rich-text-editor')
 export class RichTextEditorElement extends LitElement {
   static styles = [
     css`
       :host {
-        font-family: "Roboto", sans-serif;
+        font-family: 'Roboto', sans-serif;
         display: flex;
         justify-content: center;
         /* white-space: pre-wrap; */
@@ -67,20 +67,20 @@ export class RichTextEditorElement extends LitElement {
   private lastSlashPosition = 0; // used to know where the / is when trying to close the block menu by deleting the / that triggered it
   private lastCaretPosition = 0; // used to return to the correct position when refocusing the editor
 
-  @query("#block-menu")
+  @query('#block-menu')
   private blockMenu: BlockMenuElement;
 
   firstUpdated() {
-    const mountElement = this.shadowRoot.getElementById("editor");
+    const mountElement = this.shadowRoot.getElementById('editor');
 
     this.editor = new Editor({
       element: mountElement,
       extensions: [StarterKit, Underline],
       content: exampleContent,
     });
-    this.editor.on("update", () => this.onEditorUpdate());
-    this.editor.on("focus", () => this.onEditorFocus());
-    this.editor.on("blur", () => this.onEditorBlur());
+    this.editor.on('update', () => this.onEditorUpdate());
+    this.editor.on('focus', () => this.onEditorFocus());
+    this.editor.on('blur', () => this.onEditorBlur());
 
     this.editor.view.focus();
   }
@@ -109,17 +109,17 @@ export class RichTextEditorElement extends LitElement {
 
       const beforeIsOriginalPosition = caretPos - 1 === this.lastSlashPosition;
       const shouldCloseBlockMenu =
-        (e.key === "Backspace" &&
+        (e.key === 'Backspace' &&
           beforeIsOriginalPosition &&
-          characterBefore === "/") ||
-        e.key === "Escape";
+          characterBefore === '/') ||
+        e.key === 'Escape';
 
       if (shouldCloseBlockMenu) {
         this.blockMenuOpen = false;
       }
     }
 
-    if (e.key === "/" && !this.blockMenuOpen) {
+    if (e.key === '/' && !this.blockMenuOpen) {
       if (this.hasSelection) {
         // Dont type the / if there is a selection
         e.preventDefault();
@@ -171,8 +171,7 @@ export class RichTextEditorElement extends LitElement {
         .editor=${this.editor}
         .open=${this.blockMenuOpen}
         @close=${this.onBlockMenuClosed}
-        id="block-menu"
-      ></block-menu>
+        id="block-menu"></block-menu>
       <div id="wrapper">
         <div id="content-overview">Content overview</div>
         <div id="editor" @keydown=${this.onKeydown}></div>

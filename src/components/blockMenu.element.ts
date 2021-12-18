@@ -1,9 +1,9 @@
-import { Editor } from "@tiptap/core";
-import { LitElement, html, css, TemplateResult } from "lit";
-import { customElement, property, state } from "lit/decorators.js";
-import { EditorCommand, searchCommands } from "../helpers/editorHelper";
+import { Editor } from '@tiptap/core';
+import { LitElement, html, css, TemplateResult } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import { EditorCommand, searchCommands } from '../helpers/editorHelper';
 
-@customElement("block-menu")
+@customElement('block-menu')
 export class BlockMenuElement extends LitElement {
   static styles = [
     css`
@@ -26,7 +26,7 @@ export class BlockMenuElement extends LitElement {
   ];
 
   @state()
-  private search = "";
+  private search = '';
 
   @state()
   private _open = false;
@@ -45,16 +45,16 @@ export class BlockMenuElement extends LitElement {
     const oldValue = this._open;
     this._open = newValue;
     this.onOpenChange(newValue);
-    this.requestUpdate("open", oldValue);
+    this.requestUpdate('open', oldValue);
   }
 
   disconnectedCallback() {
-    document.removeEventListener("keydown", this.onKeyDownHandler);
+    document.removeEventListener('keydown', this.onKeyDownHandler);
   }
 
   private onKeyDownHandler = this.onKeyDown.bind(this);
   private onKeyDown(e: KeyboardEvent): void {
-    if (e.key === "Backspace") {
+    if (e.key === 'Backspace') {
       this.search = this.search.slice(0, -1);
     }
     // Only single characters and no spaces or slashes
@@ -65,20 +65,20 @@ export class BlockMenuElement extends LitElement {
 
   private onOpenChange(open: boolean): void {
     if (open) {
-      document.addEventListener("keydown", this.onKeyDownHandler);
-      this.style.display = "block";
+      document.addEventListener('keydown', this.onKeyDownHandler);
+      this.style.display = 'block';
       this.style.top = `${this.position.top}px`;
       this.style.left = `${this.position.left}px`;
     } else {
-      document.removeEventListener("keydown", this.onKeyDownHandler);
-      this.style.display = "none";
-      this.search = "";
+      document.removeEventListener('keydown', this.onKeyDownHandler);
+      this.style.display = 'none';
+      this.search = '';
     }
   }
 
   private onSelectItem(command: Function): void {
     command();
-    const event = new CustomEvent("close");
+    const event = new CustomEvent('close');
     this.dispatchEvent(event);
   }
 

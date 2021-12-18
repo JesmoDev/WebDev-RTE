@@ -4,10 +4,10 @@
 // 3. Rename @customElement - has to have a "-" in it.
 // 4. Import it in main.ts - import "./components/elementTemplate.element";
 
-import { LitElement, html, css, TemplateResult } from "lit";
-import { customElement, property, state } from "lit/decorators.js";
+import { LitElement, html, css, TemplateResult } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
 
-@customElement("element-template")
+@customElement('element-template')
 export class ElementTemplateElement extends LitElement {
   static styles = [
     css`
@@ -22,15 +22,15 @@ export class ElementTemplateElement extends LitElement {
   // Internal state with default value: "state default value".
   // Change this to what you need, doesn't have to be called state.
   @state()
-  private state = "state default value";
+  private state = 'state default value';
 
   // Property that can be accessed from outside component: "property default value".
   // Change this to what you need, doesn't have to be called property.
   @property({ type: String })
-  public property: string = "property default value";
+  public property: string = 'property default value';
 
   private myEvent(e: MouseEvent): void {
-    console.log("event fired, you pressed this element", e.target);
+    console.log('event fired, you pressed this element', e.target);
   }
 
   protected render(): TemplateResult {
