@@ -76,8 +76,8 @@ export class BlockMenuElement extends LitElement {
     }
   }
 
-  private onSelectItem(command: Function): void {
-    command();
+  private onSelectItem(editorCommand: EditorCommand): void {
+    editorCommand.command();
     const event = new CustomEvent('close');
     this.dispatchEvent(event);
   }
@@ -87,7 +87,7 @@ export class BlockMenuElement extends LitElement {
 
     return filteredItems.map(
       (editorCommand: EditorCommand) =>
-        html`<div @click=${() => this.onSelectItem(editorCommand.command)}>
+        html`<div @click=${() => this.onSelectItem(editorCommand)}>
           ${editorCommand.name}${editorCommand.description}
         </div>`
     );

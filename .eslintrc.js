@@ -13,12 +13,13 @@ module.exports = {
   ],
   rules: {
     // disable the rule for all files
-    'no-unnecessary-type-assertion': 'on',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
-    '@typescript-eslint/no-non-null-assertion': 'off',
-    '@typescript-eslint/no-explicit-any': 'off',
-    '@typescript-eslint/ban-ts-comment': 'off', //TODO: Remove (maybe)
-    '@typescript-eslint/ban-types': 'off', //TODO: Remove (maybe)
+    '@typescript-eslint/no-non-null-assertion': 'warn',
+    '@typescript-eslint/no-explicit-any': 'warn',
+    '@typescript-eslint/ban-ts-comment': 'warn', //TODO: Remove (maybe)
+    '@typescript-eslint/ban-types': 'warn', //TODO: Remove (maybe)
+    'lit-a11y/click-events-have-key-events': 'off',
+    'import/no-named-as-default': 'off',
   },
   settings: {
     'import/resolver': {

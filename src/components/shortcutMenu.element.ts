@@ -34,13 +34,20 @@ export class ShortcutMenuElement extends LitElement {
       }
 
       .shortcut {
+        background: none;
+        border: none;
+        width: 100%;
+        font-size: inherit;
+        font-family: inherit;
         display: flex;
         cursor: pointer;
         padding: 8px 12px;
         user-select: none;
+        outline: none;
       }
 
-      .shortcut:hover {
+      .shortcut:hover,
+      .shortcut:focus {
         background: grey;
       }
 
@@ -62,7 +69,9 @@ export class ShortcutMenuElement extends LitElement {
   public editor: Editor;
 
   private renderShortcut(editorCommand: EditorCommand): TemplateResult {
-    return html`<div @click=${() => editorCommand.command()} class="shortcut">
+    return html`<button
+      @click=${() => editorCommand.command()}
+      class="shortcut">
       <span class="shortcut-name">${editorCommand.name}</span>
       <span class="shortcut-keys">
         ${editorCommand.keyboardShortcut.map(
@@ -73,7 +82,7 @@ export class ShortcutMenuElement extends LitElement {
             `
         )}
       </span>
-    </div>`;
+    </button>`;
   }
 
   private renderShortcutList(): TemplateResult[] {

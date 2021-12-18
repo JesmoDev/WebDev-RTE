@@ -27,7 +27,7 @@ export class ElementTemplateElement extends LitElement {
   // Property that can be accessed from outside component: "property default value".
   // Change this to what you need, doesn't have to be called property.
   @property({ type: String })
-  public property: string = 'property default value';
+  public property = 'property default value';
 
   private myEvent(e: MouseEvent): void {
     console.log('event fired, you pressed this element', e.target);

@@ -5,7 +5,7 @@ export interface EditorCommand {
   description: string;
   aliases: string[];
   keyboardShortcut: string[];
-  command: Function;
+  command(): void;
 }
 
 export const searchCommands = (
