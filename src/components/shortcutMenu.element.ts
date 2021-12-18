@@ -1,11 +1,7 @@
-import { CommandManager, Editor } from "@tiptap/core";
+import { Editor } from "@tiptap/core";
 import { LitElement, html, css, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
-import {
-  EditorCommand,
-  getCommands,
-  searchCommands,
-} from "../helpers/editorHelper";
+import { EditorCommand, searchCommands } from "../helpers/editorHelper";
 
 @customElement("shortcut-menu")
 export class ShortcutMenuElement extends LitElement {
@@ -60,39 +56,39 @@ export class ShortcutMenuElement extends LitElement {
   ];
 
   @state()
-  search = "";
+  private search = "";
 
   @property({ attribute: false })
-  editor: Editor;
+  public editor: Editor;
 
-  private renderShortcut(shortcut: EditorCommand): TemplateResult {
-    return html`<div @click=${() => shortcut.command()} class="shortcut">
-      <span class="shortcut-name">${shortcut.name}</span>
+  private renderShortcut(editorCommand: EditorCommand): TemplateResult {
+    return html`<div @click=${() => editorCommand.command()} class="shortcut">
+      <span class="shortcut-name">${editorCommand.name}</span>
       <span class="shortcut-keys">
-        ${shortcut.keyboardShortcut.map(
+        ${editorCommand.keyboardShortcut.map(
           (key, i) =>
             html`
               <span>${key}</span>
-              ${i !== shortcut.keyboardShortcut.length - 1 ? "+" : ""}
+              ${i !== editorCommand.keyboardShortcut.length - 1 ? "+" : ""}
             `
         )}
       </span>
     </div>`;
   }
 
-  private renderShortcutList() {
-    const filteredItems = searchCommands(this.editor, this.search);
+  private renderShortcutList(): TemplateResult[] {
+    const filtered = searchCommands(this.editor, this.search);
 
-    return filteredItems.map(
-      (shortcut) => html`${this.renderShortcut(shortcut)}`
+    return filtered.map(
+      (shortcut: EditorCommand) => html`${this.renderShortcut(shortcut)}`
     );
   }
 
-  private onInput(e: InputEvent) {
+  private onInput(e: InputEvent): void {
     this.search = (e.target as HTMLInputElement).value;
   }
 
-  protected render() {
+  protected render(): TemplateResult {
     return html`<div id="shortcut-menu">
       <h2>Shortcuts</h2>
       <div>

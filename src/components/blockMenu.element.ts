@@ -1,5 +1,7 @@
-import { LitElement, html, css } from "lit";
+import { Editor } from "@tiptap/core";
+import { LitElement, html, css, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
+import { EditorCommand, searchCommands } from "../helpers/editorHelper";
 
 @customElement("block-menu")
 export class BlockMenuElement extends LitElement {
@@ -24,34 +26,34 @@ export class BlockMenuElement extends LitElement {
   ];
 
   @state()
-  search = "what";
+  private search = "";
 
   @state()
-  _open = false;
+  private _open = false;
 
   @property({ attribute: false })
-  blockItems = [];
+  public position: { top: number; left: number };
 
   @property({ attribute: false })
-  position: { top: number; left: number };
+  public editor: Editor;
 
   @property({ type: Boolean })
-  get open() {
+  public get open() {
     return this._open;
   }
-  set open(newValue) {
+  public set open(newValue) {
     const oldValue = this._open;
     this._open = newValue;
     this.onOpenChange(newValue);
     this.requestUpdate("open", oldValue);
   }
 
-  disconnectedCallback(): void {
+  disconnectedCallback() {
     document.removeEventListener("keydown", this.onKeyDownHandler);
   }
 
   private onKeyDownHandler = this.onKeyDown.bind(this);
-  private onKeyDown(e: KeyboardEvent) {
+  private onKeyDown(e: KeyboardEvent): void {
     if (e.key === "Backspace") {
       this.search = this.search.slice(0, -1);
     }
@@ -74,27 +76,24 @@ export class BlockMenuElement extends LitElement {
     }
   }
 
-  private onSelectItem(command: Function) {
+  private onSelectItem(command: Function): void {
     command();
-
     const event = new CustomEvent("close");
     this.dispatchEvent(event);
   }
 
-  private renderBlockItems(): Array<Object> {
-    const filteredItems = this.blockItems.filter((x) =>
-      x.display.toLowerCase().includes(this.search)
-    );
+  private renderBlockItems(): TemplateResult[] {
+    const filteredItems = searchCommands(this.editor, this.search);
 
     return filteredItems.map(
-      (block) =>
-        html`<div @click=${() => this.onSelectItem(block.command)}>
-          ${block.display}${block.description}
+      (editorCommand: EditorCommand) =>
+        html`<div @click=${() => this.onSelectItem(editorCommand.command)}>
+          ${editorCommand.name}${editorCommand.description}
         </div>`
     );
   }
 
-  protected render() {
+  protected render(): TemplateResult {
     return html`<div id="block-menu">${this.renderBlockItems()}</div>`;
   }
 }
