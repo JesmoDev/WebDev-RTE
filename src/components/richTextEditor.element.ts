@@ -134,6 +134,7 @@ export class RichTextEditorElement extends LitElement {
     if (this.hasSelection) {
       return this.editor.state.selection.$head.pos;
     } else {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore // For some reason it doesn't know that $cursor exists
       return this.editor.state.selection.$cursor.pos;
     }
