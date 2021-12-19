@@ -178,21 +178,16 @@ export class RichTextEditorElement extends LitElement {
   }
 
   protected render(): TemplateResult {
-    return html`<block-menu
+    return html`<div id="wrapper">
+        <div id="content-overview">Content overview</div>
+        <div id="editor" @keydown=${this.onKeydown}></div>
+        <shortcut-menu .rte=${this as RichTextEditorElement}></shortcut-menu>
+      </div>
+      <block-menu
         .rte=${this as RichTextEditorElement}
         .open=${this.blockMenuOpen}
         @close=${this.onBlockMenuClosed}
         id="block-menu"></block-menu>
-      <div id="wrapper">
-        <div id="content-overview">Content overview</div>
-        <div id="editor" @keydown=${this.onKeydown}></div>
-
-      </div>
-      <hover-menu></hover-menu>
-      `;
-
-        <shortcut-menu .rte=${this as RichTextEditorElement}></shortcut-menu>
-      </div>`;
- main
+      <hover-menu></hover-menu>`;
   }
 }
