@@ -124,7 +124,7 @@ export const getCommands = (): EditorCommand[] => [
   {
     name: 'link',
     description: 'add link',
-    aliases: [''],
+    aliases: ['anchor'],
     keyboardShortcut: [],
     command: () =>
       _editor.commands.toggleLink({
