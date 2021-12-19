@@ -1,6 +1,7 @@
 import { Editor } from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
 import Underline from '@tiptap/extension-underline';
+import TextAlign from '@tiptap/extension-text-align';
 import { RichTextEditorElement } from '../components/richTextEditor.element';
 import exampleContent from './exampleContent';
 
@@ -26,7 +27,7 @@ export const initEditor = (
   } else {
     editor = new Editor({
       element: mountElement,
-      extensions: [StarterKit, Underline],
+      extensions: [StarterKit, Underline, TextAlign],
       content: exampleContent,
     });
     _rte = rte;
@@ -121,5 +122,33 @@ export const getCommands = (): EditorCommand[] => [
     aliases: ['h6', 'head6', 'header6', 'heading6'],
     keyboardShortcut: ['ctrl', 'alt', '6'],
     command: () => editor.commands.toggleHeading({ level: 6 }),
+  },
+  {
+    name: 'left align',
+    description: 'align text to the left',
+    aliases: ['left'],
+    keyboardShortcut: ['ctrl', 'shift', 'l'],
+    command: () => editor.commands.setTextAlign('left'),
+  },
+  {
+    name: 'center align',
+    description: 'center align text',
+    aliases: ['mid', 'center'],
+    keyboardShortcut: ['ctrl', 'shift', 'e'],
+    command: () => editor.commands.setTextAlign('center'),
+  },
+  {
+    name: 'right align',
+    description: 'align text to the right',
+    aliases: ['right'],
+    keyboardShortcut: ['ctrl', 'shift', 'r'],
+    command: () => editor.commands.setTextAlign('right'),
+  },
+  {
+    name: 'justify align',
+    description: 'justify text',
+    aliases: ['justify', 'mid'],
+    keyboardShortcut: ['ctrl', 'shift', 'j'],
+    command: () => editor.commands.setTextAlign('justify'),
   },
 ];

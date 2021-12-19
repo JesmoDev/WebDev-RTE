@@ -113,13 +113,13 @@ export class HoverMenuElement extends LitElement {
           <img src="src/img/icons/icons8-strikethrough-50.png" alt="" />
         </div>
         <div><img src="src/img/icons/icons8-link-50.png" alt="" /></div>
-        <div>
+        <div @click=${() => editor.commands.setTextAlign('left')}>
           <img src="src/img/icons/icons8-align-left-50.png" alt="" />
         </div>
-        <div>
+        <div @click=${() => editor.commands.setTextAlign('center')}>
           <img src="src/img/icons/icons8-align-justify-50.png" alt="" />
         </div>
-        <div>
+        <div @click=${() => editor.commands.setTextAlign('right')}>
           <img src="src/img/icons/icons8-align-right-50.png" alt="" />
         </div>
       </div>
