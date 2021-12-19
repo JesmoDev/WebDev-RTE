@@ -1,6 +1,7 @@
 import { Editor } from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
 import Underline from '@tiptap/extension-underline';
+import Link from '@tiptap/extension-link';
 import { RichTextEditorElement } from '../components/richTextEditor.element';
 import exampleContent from './exampleContent';
 
@@ -24,7 +25,7 @@ export const initEditor = (
   } else {
     _editor = new Editor({
       element: mountElement,
-      extensions: [StarterKit, Underline],
+      extensions: [StarterKit, Underline, Link],
       content: exampleContent,
     });
     _rte = rte;
@@ -126,7 +127,7 @@ export const getCommands = (): EditorCommand[] => [
     aliases: [''],
     keyboardShortcut: [],
     command: () =>
-      rte.editor.commands.toggleLink({
+      _editor.commands.toggleLink({
         href: 'https://tiptap.dev/api/marks/link',
       }),
   },
