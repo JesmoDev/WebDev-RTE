@@ -3,8 +3,9 @@ import { LitElement, html, css, TemplateResult } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { Editor } from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
-import { BlockMenuElement } from './blockMenu.element';
+import Link from '@tiptap/extension-link';
 import Underline from '@tiptap/extension-underline';
+import { BlockMenuElement } from './blockMenu.element';
 import exampleContent from '../helpers/exampleContent';
 
 @customElement('rich-text-editor')
@@ -85,7 +86,7 @@ export class RichTextEditorElement extends LitElement {
 
     this.editor = new Editor({
       element: mountElement,
-      extensions: [StarterKit, Underline],
+      extensions: [StarterKit, Underline, Link],
       content: exampleContent,
     });
     this.editor.on('update', () => this.onEditorUpdate());

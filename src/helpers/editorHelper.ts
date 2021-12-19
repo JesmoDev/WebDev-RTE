@@ -100,4 +100,14 @@ export const getCommands = (rte: RichTextEditorElement): EditorCommand[] => [
     keyboardShortcut: ['ctrl', 'alt', '6'],
     command: () => rte.editor.commands.toggleHeading({ level: 6 }),
   },
+  {
+    name: 'link',
+    description: 'add link',
+    aliases: [''],
+    keyboardShortcut: [],
+    command: () =>
+      rte.editor.commands.toggleLink({
+        href: 'https://tiptap.dev/api/marks/link',
+      }),
+  },
 ];
