@@ -27,7 +27,13 @@ export const initEditor = (
   } else {
     editor = new Editor({
       element: mountElement,
-      extensions: [StarterKit, Underline, TextAlign],
+      extensions: [
+        StarterKit,
+        Underline,
+        TextAlign.configure({
+          types: ['heading', 'paragraph'],
+        }),
+      ],
       content: exampleContent,
     });
     _rte = rte;
