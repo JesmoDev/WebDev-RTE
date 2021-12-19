@@ -1,8 +1,6 @@
-import { Editor } from '@tiptap/core';
 import { LitElement, html, css, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { EditorCommand, searchCommands } from '../helpers/editorHelper';
-import { RichTextEditorElement } from './richTextEditor.element';
 
 @customElement('shortcut-menu')
 export class ShortcutMenuElement extends LitElement {
@@ -66,9 +64,6 @@ export class ShortcutMenuElement extends LitElement {
   @state()
   private search = '';
 
-  @property({ attribute: false })
-  public rte: RichTextEditorElement;
-
   private renderShortcut(editorCommand: EditorCommand): TemplateResult {
     return html`<button
       @click=${() => editorCommand.command()}
@@ -87,7 +82,7 @@ export class ShortcutMenuElement extends LitElement {
   }
 
   private renderShortcutList(): TemplateResult[] {
-    const filtered = searchCommands(this.rte, this.search);
+    const filtered = searchCommands(this.search);
 
     return filtered.map(
       (shortcut: EditorCommand) => html`${this.renderShortcut(shortcut)}`
