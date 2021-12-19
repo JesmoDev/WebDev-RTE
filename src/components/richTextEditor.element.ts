@@ -186,7 +186,13 @@ export class RichTextEditorElement extends LitElement {
       <div id="wrapper">
         <div id="content-overview">Content overview</div>
         <div id="editor" @keydown=${this.onKeydown}></div>
+
+      </div>
+      <hover-menu></hover-menu>
+      `;
+
         <shortcut-menu .rte=${this as RichTextEditorElement}></shortcut-menu>
       </div>`;
+ main
   }
 }
