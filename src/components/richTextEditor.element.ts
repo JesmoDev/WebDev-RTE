@@ -1,6 +1,6 @@
 import '../main';
 import { LitElement, html, css, TemplateResult } from 'lit';
-import { customElement, query, state } from 'lit/decorators.js';
+import { customElement, property, query, state } from 'lit/decorators.js';
 import { Editor } from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
 import { BlockMenuElement } from './blockMenu.element';
@@ -57,18 +57,28 @@ export class RichTextEditorElement extends LitElement {
     `,
   ];
 
+  @query('#block-menu')
+  private blockMenu: BlockMenuElement;
+
   @state()
-  private editor: Editor;
+  private _editor: Editor;
 
   @state()
   private blockMenuOpen = false;
 
+  @property({ attribute: false })
+  public get editor() {
+    return this._editor;
+  }
+  private set editor(newValue) {
+    const oldValue = this._editor;
+    this._editor = newValue;
+    this.requestUpdate('editor', oldValue);
+  }
+
   // NON STATE VARIABLES //
   private lastSlashPosition = 0; // used to know where the / is when trying to close the block menu by deleting the / that triggered it
   private lastCaretPosition = 0; // used to return to the correct position when refocusing the editor
-
-  @query('#block-menu')
-  private blockMenu: BlockMenuElement;
 
   firstUpdated() {
     const mountElement = this.shadowRoot.getElementById('editor');
@@ -169,16 +179,20 @@ export class RichTextEditorElement extends LitElement {
 
   protected render(): TemplateResult {
     return html`<block-menu
-        .editor=${this.editor}
+        .rte=${this as RichTextEditorElement}
         .open=${this.blockMenuOpen}
         @close=${this.onBlockMenuClosed}
         id="block-menu"></block-menu>
       <div id="wrapper">
         <div id="content-overview">Content overview</div>
         <div id="editor" @keydown=${this.onKeydown}></div>
-        <shortcut-menu .editor=${this.editor}></shortcut-menu>
+
       </div>
       <hover-menu></hover-menu>
       `;
+
+        <shortcut-menu .rte=${this as RichTextEditorElement}></shortcut-menu>
+      </div>`;
+ main
   }
 }

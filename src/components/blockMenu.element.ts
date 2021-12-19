@@ -2,6 +2,7 @@ import { Editor } from '@tiptap/core';
 import { LitElement, html, css, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { EditorCommand, searchCommands } from '../helpers/editorHelper';
+import { RichTextEditorElement } from './richTextEditor.element';
 
 @customElement('block-menu')
 export class BlockMenuElement extends LitElement {
@@ -35,7 +36,7 @@ export class BlockMenuElement extends LitElement {
   public position: { top: number; left: number };
 
   @property({ attribute: false })
-  public editor: Editor;
+  public rte: RichTextEditorElement;
 
   @property({ type: Boolean })
   public get open() {
@@ -77,13 +78,15 @@ export class BlockMenuElement extends LitElement {
   }
 
   private onSelectItem(editorCommand: EditorCommand): void {
+    console.log(this.rte);
+
     editorCommand.command();
     const event = new CustomEvent('close');
     this.dispatchEvent(event);
   }
 
   private renderBlockItems(): TemplateResult[] {
-    const filteredItems = searchCommands(this.editor, this.search);
+    const filteredItems = searchCommands(this.rte, this.search);
 
     return filteredItems.map(
       (editorCommand: EditorCommand) =>
