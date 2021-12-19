@@ -2,10 +2,8 @@ import '../main';
 import { LitElement, html, css, TemplateResult } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { Editor } from '@tiptap/core';
-import StarterKit from '@tiptap/starter-kit';
-import Link from '@tiptap/extension-link';
-import Underline from '@tiptap/extension-underline';
 import { BlockMenuElement } from './blockMenu.element';
+import { initEditor } from '../helpers/editorHelper';
 import exampleContent from '../helpers/exampleContent';
 
 @customElement('rich-text-editor')
@@ -84,11 +82,7 @@ export class RichTextEditorElement extends LitElement {
   firstUpdated() {
     const mountElement = this.shadowRoot.getElementById('editor');
 
-    this.editor = new Editor({
-      element: mountElement,
-      extensions: [StarterKit, Underline, Link],
-      content: exampleContent,
-    });
+    this.editor = initEditor(this, mountElement);
     this.editor.on('update', () => this.onEditorUpdate());
     this.editor.on('focus', () => this.onEditorFocus());
     this.editor.on('blur', () => this.onEditorBlur());
@@ -182,10 +176,9 @@ export class RichTextEditorElement extends LitElement {
     return html`<div id="wrapper">
         <div id="content-overview">Content overview</div>
         <div id="editor" @keydown=${this.onKeydown}></div>
-        <shortcut-menu .rte=${this as RichTextEditorElement}></shortcut-menu>
+        <shortcut-menu></shortcut-menu>
       </div>
       <block-menu
-        .rte=${this as RichTextEditorElement}
         .open=${this.blockMenuOpen}
         @close=${this.onBlockMenuClosed}
         id="block-menu"></block-menu>
