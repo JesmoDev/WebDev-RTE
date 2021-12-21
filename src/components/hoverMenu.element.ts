@@ -1,18 +1,20 @@
-import { LitElement, html, css, TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
-import { editor, getCommands } from '../helpers/editorHelper';
+import { html, css, TemplateResult } from 'lit';
+import { customElement } from 'lit/decorators.js';
+import { MenuBase } from '../abstracts/MenuBase';
+import { getCommands, editor } from '../helpers/editorHelper';
 
 @customElement('hover-menu')
-export class HoverMenuElement extends LitElement {
+export class HoverMenuElement extends MenuBase {
   static styles = [
+    ...MenuBase.styles,
     css`
-      .hovermenu {
+      .hover-menu {
         background-color: #3647ab;
         width: 500px;
         border-radius: 5px;
         align-items: center;
       }
-      .hovermenu div {
+      .hover-menu div {
         text-decoration: none;
         color: white;
         font-size: 20px;
@@ -22,7 +24,7 @@ export class HoverMenuElement extends LitElement {
         height: auto;
       }
 
-      .hovermenu div img {
+      .hover-menu div img {
         width: 20px;
       }
       ul {
@@ -70,23 +72,9 @@ export class HoverMenuElement extends LitElement {
     `,
   ];
 
-  // Internal state with default value: "state default value".
-  // Change this to what you need, doesn't have to be called state.
-  @state()
-  private state = 'state default value';
-
-  // Property that can be accessed from outside component: "property default value".
-  // Change this to what you need, doesn't have to be called property.
-  @property({ type: String })
-  public property = 'property default value';
-
-  private myEvent(e: MouseEvent): void {
-    console.log('event fired, you pressed this element', e.target);
-  }
-
   protected render(): TemplateResult {
     return html`
-      <div class="hovermenu">
+      <div class="hover-menu">
         <ul class="dropdownmenu">
           <li>
             <div>Text</div>
