@@ -1,5 +1,5 @@
-import { LitElement, html, css, TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { html, css, TemplateResult } from 'lit';
+import { customElement, state } from 'lit/decorators.js';
 import { EditorCommand, searchCommands } from '../helpers/editorHelper';
 import { MenuBase } from '../abstracts/MenuBase';
 @customElement('block-menu')
@@ -21,20 +21,16 @@ export class BlockMenuElement extends MenuBase {
   @state()
   private search = '';
 
-  disconnectedCallback() {
-    super.disconnectedCallback();
-    document.removeEventListener('keydown', this.onKeyDownHandler);
-  }
-
-  firstUpdated() {
-    this.style.display = 'block';
-    this.style.top = `${this.position.top + this.parentElement.scrollTop}px`;
-    this.style.left = `${this.position.left - this.parentElement.offsetLeft}px`;
-
-    // This skips the "k" input
+  connectedCallback(): void {
+    super.connectedCallback();
     setTimeout(() => {
       document.addEventListener('keydown', this.onKeyDownHandler);
     }, 0);
+  }
+
+  disconnectedCallback(): void {
+    super.disconnectedCallback();
+    document.removeEventListener('keydown', this.onKeyDownHandler);
   }
 
   private onKeyDownHandler = this.onKeyDown.bind(this);

@@ -17,14 +17,17 @@ export abstract class MenuBase extends LitElement {
   @property({ attribute: false })
   public position: { top: number; left: number };
 
-  onClickHandler = this.onClick.bind(this);
-  onClick(e: MouseEvent) {
+  private onClickHandler = this.onClick.bind(this);
+  private onClick(e: MouseEvent): void {
     if (e.target !== this) {
       this.closeMenu();
     }
   }
 
   connectedCallback(): void {
+    this.style.top = `${this.position.top + this.parentElement.scrollTop}px`;
+    this.style.left = `${this.position.left - this.parentElement.offsetLeft}px`;
+
     this.parent = this.parentElement;
     super.connectedCallback();
     this.parent.addEventListener('click', this.onClickHandler);
