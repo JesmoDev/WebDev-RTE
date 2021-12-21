@@ -1,20 +1,22 @@
 import '../main';
 import { LitElement, html, css, TemplateResult } from 'lit';
-import { customElement, property, query, state } from 'lit/decorators.js';
+import { customElement, property, state } from 'lit/decorators.js';
 import { Editor } from '@tiptap/core';
 import { BlockMenuElement } from './blockMenu.element';
 import { initEditor } from '../helpers/editorHelper';
-import exampleContent from '../helpers/exampleContent';
-
+import { MenuBase } from '../abstracts/MenuBase';
 @customElement('rich-text-editor')
 export class RichTextEditorElement extends LitElement {
   static styles = [
     css`
       :host {
+        width: 100%;
         font-family: 'Roboto', sans-serif;
         display: flex;
         justify-content: center;
+        overflow-y: auto;
         /* white-space: pre-wrap; */
+        background: #f8f9fa;
       }
 
       [contenteditable]:focus {
@@ -22,24 +24,55 @@ export class RichTextEditorElement extends LitElement {
       }
 
       #wrapper {
-        position: relative;
-        display: flex;
+        display: grid;
+        height: max-content;
+        min-height: 100%;
+        grid-template-columns: 300px auto 300px;
         gap: 64px;
+        padding: 16px 0px;
+        box-sizing: border-box;
       }
 
       #editor {
-        width: 700px;
+        display: flex;
+        box-sizing: border-box;
+        position: relative;
+        width: 816px;
+        background: white;
+        grid-column-start: 2;
+        padding: 101px;
+        box-shadow: 0 1px 3px 1px rgba(60, 64, 67, 0.15);
       }
 
       :host,
-      #wrapper,
       #editor,
       .ProseMirror {
-        min-height: 100%;
+        height: 100%;
       }
 
       .ProseMirror {
-        overflow: hidden;
+        flex-grow: 1;
+        inset: 0;
+      }
+
+      .panel-left,
+      .panel-right {
+        height: fit-content;
+        position: sticky;
+        top: 0;
+
+        width: 100%;
+        /* border: 1px solid black; */
+        opacity: 0.5;
+        transition: opacity 100ms ease-in;
+        overflow-y: auto;
+      }
+
+      .panel-left:hover,
+      .panel-right:hover,
+      .panel-left:focus-within,
+      .panel-right:focus-within {
+        opacity: 1;
       }
 
       pre {
@@ -56,14 +89,8 @@ export class RichTextEditorElement extends LitElement {
     `,
   ];
 
-  @query('#block-menu')
-  private blockMenu: BlockMenuElement;
-
   @state()
   private _editor: Editor;
-
-  @state()
-  private blockMenuOpen = false;
 
   @property({ attribute: false })
   public get editor() {
@@ -104,34 +131,9 @@ export class RichTextEditorElement extends LitElement {
   }
 
   private onKeydown(e: KeyboardEvent): void {
-    if (this.blockMenuOpen) {
-      const caretPos = this.getCaretPos;
-
-      const characterBefore = this.editor.state.doc.textBetween(
-        caretPos - 1,
-        caretPos
-      );
-
-      const beforeIsOriginalPosition = caretPos - 1 === this.lastSlashPosition;
-      const shouldCloseBlockMenu =
-        (e.key === 'Backspace' &&
-          beforeIsOriginalPosition &&
-          characterBefore === '/') ||
-        e.key === 'Escape';
-
-      if (shouldCloseBlockMenu) {
-        this.blockMenuOpen = false;
-      }
-    }
-
-    if (e.key === '/' && !this.blockMenuOpen) {
-      if (this.hasSelection) {
-        // Dont type the / if there is a selection
-        e.preventDefault();
-      }
-      this.lastSlashPosition = this.getCaretPos;
-
-      this.openBlockMenu();
+    if (e.ctrlKey && e.key === 'k') {
+      e.preventDefault();
+      this.openMenu('block-menu');
     }
   }
 
@@ -152,15 +154,18 @@ export class RichTextEditorElement extends LitElement {
     return to - from > 0;
   }
 
-  private openBlockMenu(): void {
-    this.blockMenuOpen = true;
-    const cursorPos = this.getCaretPos;
-    const pos = this.editor.view.coordsAtPos(cursorPos);
+  private openMenu(tag: string): void {
+    const pos = this.editor.view.coordsAtPos(this.getCaretPos);
+    const menu = document.createElement(tag) as MenuBase;
+    menu.position = pos;
 
-    this.blockMenu.position = pos;
+    const mountElement = this.shadowRoot.getElementById('editor');
+    mountElement.insertBefore(menu, mountElement.firstChild);
   }
 
-  private onBlockMenuClosed(): void {
+  private onMenuClosed(): void {
+    console.log('hello');
+
     // do this to delete the slash
     this.editor.view.focus();
     this.editor.commands.setTextSelection({
@@ -168,20 +173,15 @@ export class RichTextEditorElement extends LitElement {
       to: this.getCaretPos,
     });
     this.editor.commands.deleteSelection();
-
-    this.blockMenuOpen = false;
   }
 
   protected render(): TemplateResult {
     return html`<div id="wrapper">
-        <div id="content-overview">Content overview</div>
-        <div id="editor" @keydown=${this.onKeydown}></div>
+      <div class="panel-left"></div>
+      <div id="editor" @keydown=${this.onKeydown}></div>
+      <div class="panel-right">
         <shortcut-menu></shortcut-menu>
       </div>
-      <block-menu
-        .open=${this.blockMenuOpen}
-        @close=${this.onBlockMenuClosed}
-        id="block-menu"></block-menu>
-      <hover-menu></hover-menu>`;
+    </div>`;
   }
 }

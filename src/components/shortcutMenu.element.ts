@@ -7,23 +7,16 @@ export class ShortcutMenuElement extends LitElement {
   static styles = [
     css`
       :host {
-        position: sticky;
-        width: 250px;
-        height: 500px;
-        opacity: 0.5;
-        top: 175px;
-        background: lightgray;
+        display: flex;
+        flex-direction: column;
         box-sizing: border-box;
         transition: opacity 200ms ease-out;
       }
 
-      :host(:hover),
-      :host(:focus-within) {
-        opacity: 1;
-      }
-
       #shortcut-menu {
-        box-sizing: border-box;
+        height: 600px;
+        display: flex;
+        flex-direction: column;
       }
 
       input {
@@ -32,22 +25,28 @@ export class ShortcutMenuElement extends LitElement {
         margin-bottom: 16px;
       }
 
+      #shortcut-list {
+        overflow-y: auto;
+      }
+
       .shortcut {
+        /* reset button styling */
         background: none;
         border: none;
         width: 100%;
         font-size: inherit;
         font-family: inherit;
+        outline: none;
+
         display: flex;
         cursor: pointer;
         padding: 8px 12px;
         user-select: none;
-        outline: none;
       }
 
       .shortcut:hover,
       .shortcut:focus {
-        background: grey;
+        background: lightgrey;
       }
 
       .shortcut-name {
@@ -95,11 +94,14 @@ export class ShortcutMenuElement extends LitElement {
 
   protected render(): TemplateResult {
     return html`<div id="shortcut-menu">
-      <h2>Shortcuts</h2>
       <div>
-        <input @input=${this.onInput} value=${this.search} type="text" />
+        <h2>Get started</h2>
+        <p>ctrl + k</p>
       </div>
-      <div>${this.renderShortcutList()}</div>
+
+      <input @input=${this.onInput} value=${this.search} type="text" />
+
+      <div id="shortcut-list">${this.renderShortcutList()}</div>
     </div>`;
   }
 }
