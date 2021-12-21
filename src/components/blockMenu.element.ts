@@ -27,55 +27,48 @@ export class BlockMenuElement extends LitElement {
   @state()
   private search = '';
 
-  @state()
-  private _open = false;
-
   @property({ attribute: false })
   public position: { top: number; left: number };
 
-  @property({ type: Boolean })
-  public get open() {
-    return this._open;
-  }
-  public set open(newValue) {
-    const oldValue = this._open;
-    this._open = newValue;
-    this.onOpenChange(newValue);
-    this.requestUpdate('open', oldValue);
-  }
-
   disconnectedCallback() {
+    super.disconnectedCallback();
     document.removeEventListener('keydown', this.onKeyDownHandler);
   }
 
   private onKeyDownHandler = this.onKeyDown.bind(this);
   private onKeyDown(e: KeyboardEvent): void {
+    e.preventDefault();
     if (e.key === 'Backspace') {
+      if (!this.search) {
+        this.remove();
+      }
       this.search = this.search.slice(0, -1);
     }
+
+    if (e.key === 'Escape') {
+      this.remove();
+    }
+
     // Only single characters and no spaces or slashes
     if (/^(?=\S)(?!\/)(.{1})$/.test(e.key)) {
       this.search = this.search + e.key.toLowerCase();
     }
   }
 
-  private onOpenChange(open: boolean): void {
-    if (open) {
+  protected firstUpdated(): void {
+    this.style.display = 'block';
+    this.style.top = `${this.position.top + this.parentElement.scrollTop}px`;
+    this.style.left = `${this.position.left - this.parentElement.offsetLeft}px`;
+
+    // This skips the "k" input
+    setTimeout(() => {
       document.addEventListener('keydown', this.onKeyDownHandler);
-      this.style.display = 'block';
-      this.style.top = `${this.position.top}px`;
-      this.style.left = `${this.position.left}px`;
-    } else {
-      document.removeEventListener('keydown', this.onKeyDownHandler);
-      this.style.display = 'none';
-      this.search = '';
-    }
+    }, 0);
   }
 
   private onSelectItem(editorCommand: EditorCommand): void {
     editorCommand.command();
-    const event = new CustomEvent('close');
-    this.dispatchEvent(event);
+    this.remove();
   }
 
   private renderBlockItems(): TemplateResult[] {
@@ -90,6 +83,9 @@ export class BlockMenuElement extends LitElement {
   }
 
   protected render(): TemplateResult {
-    return html`<div id="block-menu">${this.renderBlockItems()}</div>`;
+    return html`<div id="block-menu">
+      <p>${this.search}</p>
+      <div>${this.renderBlockItems()}</div>
+    </div>`;
   }
 }
