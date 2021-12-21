@@ -101,26 +101,26 @@ export class HoverMenuElement extends LitElement {
           </li>
         </ul>
         <div @click=${() => editor.commands.toggleBold()}>
-          <img src="src/img/icons/icons8-bold-50.png" alt="" />
+          <img src="src/img/icons/icon8-bold-50.svg" alt="" />
         </div>
         <div @click=${() => editor.commands.toggleItalic()}>
-          <img src="src/img/icons/icons8-italic-50.png" alt="" />
+          <img src="src/img/icons/icon8-italic-50.svg" alt="" />
         </div>
         <div @click=${() => editor.commands.toggleUnderline()}>
-          <img src="src/img/icons/icons8-underline-50.png" alt="" />
+          <img src="src/img/icons/icon8-underline-50.svg" alt="" />
         </div>
         <div @click=${() => editor.commands.toggleStrike()}>
-          <img src="src/img/icons/icons8-strikethrough-50.png" alt="" />
+          <img src="src/img/icons/icon8-strikethrough-50.svg" alt="" />
         </div>
-        <div><img src="src/img/icons/icons8-link-50.png" alt="" /></div>
+        <div><img src="src/img/icons/icon8-link-50.svg" alt="" /></div>
         <div @click=${() => editor.commands.setTextAlign('left')}>
-          <img src="src/img/icons/icons8-align-left-50.png" alt="" />
+          <img src="src/img/icons/icon8-align-left-50.svg" alt="" />
         </div>
         <div @click=${() => editor.commands.setTextAlign('center')}>
-          <img src="src/img/icons/icons8-align-justify-50.png" alt="" />
+          <img src="src/img/icons/icon8-align-justify-50.svg" alt="" />
         </div>
         <div @click=${() => editor.commands.setTextAlign('right')}>
-          <img src="src/img/icons/icons8-align-right-50.png" alt="" />
+          <img src="src/img/icons/icon8-align-right-50.svg" alt="" />
         </div>
       </div>
     `;
