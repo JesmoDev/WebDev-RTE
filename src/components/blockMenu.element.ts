@@ -7,13 +7,54 @@ export class BlockMenuElement extends MenuBase {
   static styles = [
     ...MenuBase.styles,
     css`
-      #block-menu {
+      .mainBlockMenu {
+        border: solid 3px #3647ab;
+        height: 65vh;
         width: 300px;
-        height: 200px;
-        background: white;
-        border: 1px solid black;
-        border-radius: 4px;
-        box-sizing: border-box;
+        padding: 2px;
+        padding-left: 5px;
+        border-radius: 5px;
+        background-color: #f3f3f3;
+      }
+      .mainBlockMenu img {
+        width: 40px;
+        height: 25;
+        border: black 1px solid;
+        border-radius: 5px;
+        box-shadow: 1px 1px 1px 1px grey;
+      }
+
+      .input-field input {
+        margin-top: 5px;
+        height: 20px;
+        width: 250px;
+      }
+
+      .input-text {
+        display: flex;
+        float: left;
+        padding-bottom: 8px;
+        width: 260px;
+      }
+      .input-hp {
+        width: 200px;
+        height: 40px;
+        padding: 0;
+        margin: 0;
+
+        margin-left: 20px;
+        text-align: justify;
+      }
+
+      .input-hp h3 {
+        font-size: 15px;
+        margin: 0;
+        padding-bottom: 3px;
+      }
+
+      .input-hp p {
+        font-size: 10px;
+        margin-top: 4px;
       }
     `,
   ];
@@ -71,8 +112,89 @@ export class BlockMenuElement extends MenuBase {
 
   protected render(): TemplateResult {
     return html`<div id="block-menu">
-      <p>${this.search}</p>
-      <div>${this.renderBlockItems()}</div>
-    </div>`;
+      <div class="mainBlockMenu">
+        <div class="input-field">
+          <input type="text" id="input" name="input" value="input" />
+        </div>
+        <br />
+        <div class="input-text">
+          <img src="carbon_letter-aa-large-2.svg" alt="" />
+          <div class="input-hp">
+            <h3>text</h3>
+            <p>just start writing with plain text</p>
+          </div>
+        </div>
+        <div class="input-text">
+          <img src="carbon_letter-aa-large-2.svg" alt="" />
+          <div class="input-hp">
+            <h3>heading 1</h3>
+            <p>biggest section heading</p>
+          </div>
+        </div>
+        <div class="input-text">
+          <img src="carbon_letter-aa-large-2.svg" alt="" />
+          <div class="input-hp">
+            <h3>heading 2</h3>
+            <p>bigger section heading</p>
+          </div>
+        </div>
+        <div class="input-text">
+          <img src="carbon_letter-aa-large-2.svg" alt="" />
+          <div class="input-hp">
+            <h3>heading 3</h3>
+            <p>big section heading</p>
+          </div>
+        </div>
+        <div class="input-text">
+          <img src="carbon_letter-aa-large-2.svg" alt="" />
+          <div class="input-hp">
+            <h3>heading 4</h3>
+            <p>small section heading</p>
+          </div>
+        </div>
+        <div class="input-text">
+          <img src="carbon_letter-aa-large-2.svg" alt="" />
+          <div class="input-hp">
+            <h3>heading 5</h3>
+            <p>smaller section heading</p>
+          </div>
+        </div>
+        <div class="input-text">
+          <img src="carbon_letter-aa-large-2.svg" alt="" />
+          <div class="input-hp">
+            <h3>heading 6</h3>
+            <p>smallest section heading</p>
+          </div>
+        </div>
+        <div class="input-text">
+          <img src="carbon_letter-aa-large-2.svg" alt="" />
+          <div class="input-hp">
+            <h3>image</h3>
+            <p>just add an image</p>
+          </div>
+        </div>
+        <div class="input-text">
+          <img src="carbon_letter-aa-large-2.svg" alt="" />
+          <div class="input-hp">
+            <h3>bullet list</h3>
+            <p>simple bulleted list</p>
+          </div>
+        </div>
+        <div class="input-text">
+          <img src="carbon_letter-aa-large-2.svg" alt="" />
+          <div class="input-hp">
+            <h3>numbered list</h3>
+            <p>list with numbering</p>
+          </div>
+        </div>
+        <div class="input-text">
+          <img src="carbon_letter-aa-large-2.svg" alt="" />
+          <div class="input-hp">
+            <h3>code</h3>
+            <p>code snippets</p>
+          </div>
+        </div>
+      </div>
+    </div> `;
   }
 }
