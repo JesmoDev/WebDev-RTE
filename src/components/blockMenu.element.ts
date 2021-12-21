@@ -1,18 +1,12 @@
 import { LitElement, html, css, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { EditorCommand, searchCommands } from '../helpers/editorHelper';
-
+import { MenuBase } from '../abstracts/MenuBase';
 @customElement('block-menu')
-export class BlockMenuElement extends LitElement {
+export class BlockMenuElement extends MenuBase {
   static styles = [
+    ...MenuBase.styles,
     css`
-      :host {
-        display: block;
-        position: absolute;
-        z-index: 100;
-        padding: 24px 0;
-      }
-
       #block-menu {
         width: 300px;
         height: 200px;
@@ -27,35 +21,12 @@ export class BlockMenuElement extends LitElement {
   @state()
   private search = '';
 
-  @property({ attribute: false })
-  public position: { top: number; left: number };
-
   disconnectedCallback() {
     super.disconnectedCallback();
     document.removeEventListener('keydown', this.onKeyDownHandler);
   }
 
-  private onKeyDownHandler = this.onKeyDown.bind(this);
-  private onKeyDown(e: KeyboardEvent): void {
-    e.preventDefault();
-    if (e.key === 'Backspace') {
-      if (!this.search) {
-        this.remove();
-      }
-      this.search = this.search.slice(0, -1);
-    }
-
-    if (e.key === 'Escape') {
-      this.remove();
-    }
-
-    // Only single characters and no spaces or slashes
-    if (/^(?=\S)(?!\/)(.{1})$/.test(e.key)) {
-      this.search = this.search + e.key.toLowerCase();
-    }
-  }
-
-  protected firstUpdated(): void {
+  firstUpdated() {
     this.style.display = 'block';
     this.style.top = `${this.position.top + this.parentElement.scrollTop}px`;
     this.style.left = `${this.position.left - this.parentElement.offsetLeft}px`;
@@ -66,9 +37,29 @@ export class BlockMenuElement extends LitElement {
     }, 0);
   }
 
+  private onKeyDownHandler = this.onKeyDown.bind(this);
+  private onKeyDown(e: KeyboardEvent): void {
+    e.preventDefault();
+    if (e.key === 'Backspace') {
+      if (!this.search) {
+        this.closeMenu();
+      }
+      this.search = this.search.slice(0, -1);
+    }
+
+    if (e.key === 'Escape') {
+      this.closeMenu();
+    }
+
+    // Only single characters and no spaces or slashes
+    if (/^(?=\S)(?!\/)(.{1})$/.test(e.key)) {
+      this.search = this.search + e.key.toLowerCase();
+    }
+  }
+
   private onSelectItem(editorCommand: EditorCommand): void {
     editorCommand.command();
-    this.remove();
+    this.closeMenu();
   }
 
   private renderBlockItems(): TemplateResult[] {

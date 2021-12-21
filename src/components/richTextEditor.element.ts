@@ -4,7 +4,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { Editor } from '@tiptap/core';
 import { BlockMenuElement } from './blockMenu.element';
 import { initEditor } from '../helpers/editorHelper';
-
+import { MenuBase } from '../abstracts/MenuBase';
 @customElement('rich-text-editor')
 export class RichTextEditorElement extends LitElement {
   static styles = [
@@ -155,18 +155,17 @@ export class RichTextEditorElement extends LitElement {
   }
 
   private openMenu(tag: string): void {
-    const cursorPos = this.getCaretPos;
-    const pos = this.editor.view.coordsAtPos(cursorPos);
-    // TODO: BlockMenuElement should be replaced by the generic class
-    const menu = document.createElement(tag) as BlockMenuElement;
+    const pos = this.editor.view.coordsAtPos(this.getCaretPos);
+    const menu = document.createElement(tag) as MenuBase;
     menu.position = pos;
-    menu.onclose = this.onMenuClosed.bind(this);
 
     const mountElement = this.shadowRoot.getElementById('editor');
     mountElement.insertBefore(menu, mountElement.firstChild);
   }
 
   private onMenuClosed(): void {
+    console.log('hello');
+
     // do this to delete the slash
     this.editor.view.focus();
     this.editor.commands.setTextSelection({
