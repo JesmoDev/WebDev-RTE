@@ -4,6 +4,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { Editor } from '@tiptap/core';
 import { initEditor } from '../helpers/editorHelper';
 import { MenuBase } from '../abstracts/MenuBase';
+import { HoverMenuElement } from './hoverMenu.element';
 @customElement('rich-text-editor')
 export class RichTextEditorElement extends LitElement {
   static styles = [
@@ -91,6 +92,9 @@ export class RichTextEditorElement extends LitElement {
   @state()
   private _editor: Editor;
 
+  @state()
+  private _currentMenu: MenuBase;
+
   // NON STATE VARIABLES //
   private lastSlashPosition = 0; // used to know where the / is when trying to close the block menu by deleting the / that triggered it
   private lastCaretPosition = 0; // used to return to the correct position when refocusing the editor
@@ -102,6 +106,7 @@ export class RichTextEditorElement extends LitElement {
     this._editor.on('update', () => this.onEditorUpdate());
     this._editor.on('focus', () => this.onEditorFocus());
     this._editor.on('blur', () => this.onEditorBlur());
+    this._editor.on('selectionUpdate', () => this.onEditorSelectionUpdate());
 
     this._editor.view.focus();
   }
@@ -126,8 +131,14 @@ export class RichTextEditorElement extends LitElement {
     }
   }
 
-  private onMouseUp(e: MouseEvent): void {
-    if (this.hasSelection) {
+  private onEditorSelectionUpdate(): void {
+    if (!this.hasSelection) return;
+
+    if (this._currentMenu instanceof HoverMenuElement) {
+      this._currentMenu.position = this._editor.view.coordsAtPos(
+        this.getCaretPos
+      );
+    } else {
       this.openMenu('hover-menu');
     }
   }
@@ -152,19 +163,17 @@ export class RichTextEditorElement extends LitElement {
   private openMenu(tag: string): void {
     const pos = this._editor.view.coordsAtPos(this.getCaretPos);
     const menu = document.createElement(tag) as MenuBase;
-    menu.position = pos;
+    this._currentMenu = menu;
 
     const mountElement = this.shadowRoot.getElementById('editor');
     mountElement.insertBefore(menu, mountElement.firstChild);
+    menu.position = pos;
   }
 
   protected render(): TemplateResult {
     return html`<div id="wrapper">
       <div class="panel-left"></div>
-      <div
-        id="editor"
-        @keydown=${this.onKeydown}
-        @mouseup=${this.onMouseUp}></div>
+      <div id="editor" @keydown=${this.onKeydown}></div>
       <div class="panel-right">
         <shortcut-panel></shortcut-panel>
       </div>

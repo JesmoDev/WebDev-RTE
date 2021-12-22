@@ -41,10 +41,6 @@ export const initEditor = (
   }
 };
 
-export const focusEditor = (): void => {
-  editor.view.focus();
-};
-
 export const searchCommands = (search: string): EditorCommand[] => {
   const filtered = getCommands().filter(
     x =>
