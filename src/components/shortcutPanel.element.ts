@@ -2,8 +2,8 @@ import { LitElement, html, css, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { EditorCommand, searchCommands } from '../helpers/editorHelper';
 
-@customElement('shortcut-menu')
-export class ShortcutMenuElement extends LitElement {
+@customElement('shortcut-panel')
+export class ShortcutPanelElement extends LitElement {
   static styles = [
     css`
       :host {

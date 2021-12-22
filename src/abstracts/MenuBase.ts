@@ -25,17 +25,19 @@ export abstract class MenuBase extends LitElement {
   }
 
   connectedCallback(): void {
+    super.connectedCallback();
     this.style.top = `${this.position.top + this.parentElement.scrollTop}px`;
     this.style.left = `${this.position.left - this.parentElement.offsetLeft}px`;
 
     this.parent = this.parentElement;
-    super.connectedCallback();
-    this.parent.addEventListener('click', this.onClickHandler);
+
+    setTimeout(() => {
+      this.parent.addEventListener('click', this.onClickHandler);
+    }, 0);
   }
 
   disconnectedCallback(): void {
     super.disconnectedCallback();
-
     this.parent.removeEventListener('click', this.onClickHandler);
   }
 
