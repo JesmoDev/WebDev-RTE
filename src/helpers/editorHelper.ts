@@ -42,7 +42,7 @@ export const initEditor = (
 };
 
 export const focusEditor = (): void => {
-  _editor.view.focus();
+  editor.view.focus();
 };
 
 export const searchCommands = (search: string): EditorCommand[] => {
