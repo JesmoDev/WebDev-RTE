@@ -124,7 +124,7 @@ export class BlockMenuElement extends MenuBase {
     return html`<div id="block-menu">
       <div class="mainBlockMenu">
         <div class="input-field">
-          <input type="text" id="input" name="input" value="input" />
+          <input type="text" id="input" name="input" value="Search..." />
         </div>
         <br />
         <div class="input-text">
