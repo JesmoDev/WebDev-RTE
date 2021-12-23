@@ -9,12 +9,14 @@ export class BlockMenuElement extends MenuBase {
     css`
       .mainBlockMenu {
         border: solid 3px #3647ab;
-        height: 70vh;
-        width: 18%;
+        height: 700px;
+        max-width: 250px;
         padding: 2px;
         padding-left: 1%;
         border-radius: 5px;
         background-color: #f3f3f3;
+        min-height: 70%;
+        min-width: 200px;
       }
 
       .input-field {
