@@ -81,7 +81,7 @@ export class ShortcutPanelElement extends LitElement {
   }
 
   private renderShortcutList(): TemplateResult[] {
-    const filtered = searchCommands(this.search);
+    const filtered = searchCommands(this.search, 'block');
 
     return filtered.map(
       (shortcut: EditorCommand) => html`${this.renderShortcut(shortcut)}`

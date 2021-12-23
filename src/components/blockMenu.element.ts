@@ -112,7 +112,7 @@ export class BlockMenuElement extends MenuBase {
   }
 
   private renderBlockItems(): TemplateResult[] {
-    const filteredItems = searchCommands(this.search);
+    const filteredItems = searchCommands(this.search, 'block');
 
     return filteredItems.map(
       (editorCommand: EditorCommand) =>

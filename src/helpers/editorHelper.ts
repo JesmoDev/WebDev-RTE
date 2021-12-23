@@ -12,6 +12,7 @@ export interface EditorCommand {
   keyboardShortcut: string[];
   command(): void;
   icon: string;
+  tags: string[];
 }
 
 let editor: Editor;
@@ -42,11 +43,15 @@ export const initEditor = (
   }
 };
 
-export const searchCommands = (search: string): EditorCommand[] => {
+export const searchCommands = (
+  search: string,
+  tag: string
+): EditorCommand[] => {
   const filtered = getCommands().filter(
     x =>
-      x.name.toLocaleLowerCase().includes(search) ||
-      x.aliases.some(y => y.includes(search))
+      (x.name.toLocaleLowerCase().includes(search) ||
+        x.aliases.some(y => y.includes(search))) &&
+      true
   );
 
   return filtered;
@@ -59,6 +64,7 @@ export const getCommands = (): EditorCommand[] => [
     aliases: ['heavy'],
     keyboardShortcut: ['ctrl', 'b'],
     command: () => editor.commands.toggleBold(),
+    tags: [],
     icon: '',
   },
   {
@@ -67,6 +73,7 @@ export const getCommands = (): EditorCommand[] => [
     aliases: ['cursive', 'italic'],
     keyboardShortcut: ['ctrl', 'i'],
     command: () => editor.commands.toggleItalic(),
+    tags: [],
     icon: '',
   },
   {
@@ -75,6 +82,7 @@ export const getCommands = (): EditorCommand[] => [
     aliases: [''],
     keyboardShortcut: ['ctrl', 'u'],
     command: () => editor.commands.toggleUnderline(),
+    tags: [],
     icon: '',
   },
   {
@@ -83,6 +91,7 @@ export const getCommands = (): EditorCommand[] => [
     aliases: [''],
     keyboardShortcut: ['ctrl', 'shift', 'x'],
     command: () => editor.commands.toggleStrike(),
+    tags: [],
     icon: '',
   },
   {
@@ -91,6 +100,7 @@ export const getCommands = (): EditorCommand[] => [
     aliases: [''],
     keyboardShortcut: ['ctrl', 'e'],
     command: () => editor.commands.toggleCode(),
+    tags: [],
     icon: '',
   },
   {
@@ -99,7 +109,8 @@ export const getCommands = (): EditorCommand[] => [
     aliases: ['h1', 'head1', 'header1', 'heading1'],
     keyboardShortcut: ['ctrl', 'alt', '1'],
     command: () => editor.commands.toggleHeading({ level: 1 }),
-    icon: '',
+    tags: ['block'],
+    icon: 'src/img/icons/H1Vector.svg',
   },
   {
     name: 'heading 2',
@@ -107,7 +118,8 @@ export const getCommands = (): EditorCommand[] => [
     aliases: ['h2', 'head2', 'header2', 'heading2'],
     keyboardShortcut: ['ctrl', 'alt', '2'],
     command: () => editor.commands.toggleHeading({ level: 2 }),
-    icon: '',
+    tags: ['block'],
+    icon: 'src/img/icons/H2Vector.svg',
   },
   {
     name: 'heading 3',
@@ -115,7 +127,8 @@ export const getCommands = (): EditorCommand[] => [
     aliases: ['h3', 'head3', 'header3', 'heading3'],
     keyboardShortcut: ['ctrl', 'alt', '3'],
     command: () => editor.commands.toggleHeading({ level: 3 }),
-    icon: '',
+    tags: ['block'],
+    icon: 'src/img/icons/H3Vector.svg',
   },
   {
     name: 'heading 4',
@@ -123,7 +136,8 @@ export const getCommands = (): EditorCommand[] => [
     aliases: ['h4', 'head4', 'header4', 'heading4'],
     keyboardShortcut: ['ctrl', 'alt', '4'],
     command: () => editor.commands.toggleHeading({ level: 4 }),
-    icon: '',
+    tags: [],
+    icon: 'src/img/icons/H4Vector.svg',
   },
   {
     name: 'heading 5',
@@ -131,7 +145,8 @@ export const getCommands = (): EditorCommand[] => [
     aliases: ['h5', 'head5', 'header5', 'heading5'],
     keyboardShortcut: ['ctrl', 'alt', '5'],
     command: () => editor.commands.toggleHeading({ level: 5 }),
-    icon: '',
+    tags: ['block'],
+    icon: 'src/img/icons/H5Vector.svg',
   },
   {
     name: 'heading 6',
@@ -139,7 +154,8 @@ export const getCommands = (): EditorCommand[] => [
     aliases: ['h6', 'head6', 'header6', 'heading6'],
     keyboardShortcut: ['ctrl', 'alt', '6'],
     command: () => editor.commands.toggleHeading({ level: 6 }),
-    icon: '',
+    tags: ['block'],
+    icon: 'src/img/icons/H6Vector.svg',
   },
   {
     name: 'left align',
@@ -147,6 +163,7 @@ export const getCommands = (): EditorCommand[] => [
     aliases: ['left'],
     keyboardShortcut: ['ctrl', 'shift', 'l'],
     command: () => editor.commands.setTextAlign('left'),
+    tags: [],
     icon: '',
   },
   {
@@ -155,6 +172,7 @@ export const getCommands = (): EditorCommand[] => [
     aliases: ['mid', 'center'],
     keyboardShortcut: ['ctrl', 'shift', 'e'],
     command: () => editor.commands.setTextAlign('center'),
+    tags: [],
     icon: '',
   },
   {
@@ -163,6 +181,7 @@ export const getCommands = (): EditorCommand[] => [
     aliases: ['right'],
     keyboardShortcut: ['ctrl', 'shift', 'r'],
     command: () => editor.commands.setTextAlign('right'),
+    tags: [],
     icon: '',
   },
   {
@@ -171,6 +190,7 @@ export const getCommands = (): EditorCommand[] => [
     aliases: ['justify', 'mid'],
     keyboardShortcut: ['ctrl', 'shift', 'j'],
     command: () => editor.commands.setTextAlign('justify'),
+    tags: [],
     icon: '',
   },
 ];
