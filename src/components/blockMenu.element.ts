@@ -129,7 +129,7 @@ export class BlockMenuElement extends MenuBase {
         <br />
         <div class="input-text">
           <div class="input-icon">
-            <img src="carbon_letter-aa-large-2.svg" alt="" />
+            <img src="src/img/icons/carbon_letter-aa-large-2.svg" alt="" />
           </div>
           <div class="input-hp">
             <h3>Text</h3>
@@ -137,49 +137,63 @@ export class BlockMenuElement extends MenuBase {
           </div>
         </div>
         <div class="input-text">
-          <div class="input-icon"><img src="H1Vector-1.svg" alt="" /></div>
+          <div class="input-icon">
+            <img src="src/img/icons/H1Vector-1.svg" alt="" />
+          </div>
           <div class="input-hp">
             <h3>Heading 1</h3>
             <p>Biggest section heading</p>
           </div>
         </div>
         <div class="input-text">
-          <div class="input-icon"><img src="H2Vector-3.svg" alt="" /></div>
+          <div class="input-icon">
+            <img src="src/img/icons/H2Vector-3.svg" alt="" />
+          </div>
           <div class="input-hp">
             <h3>Heading 2</h3>
             <p>Bigger section heading</p>
           </div>
         </div>
         <div class="input-text">
-          <div class="input-icon"><img src="H3Vector-2.svg" alt="" /></div>
+          <div class="input-icon">
+            <img src="src/img/icons/H3Vector-2.svg" alt="" />
+          </div>
           <div class="input-hp">
             <h3>Heading 3</h3>
             <p>Big section heading</p>
           </div>
         </div>
         <div class="input-text">
-          <div class="input-icon"><img src="H4Vector.svg" alt="" /></div>
+          <div class="input-icon">
+            <img src="src/img/icons/H4Vector.svg" alt="" />
+          </div>
           <div class="input-hp">
             <h3>Heading 4</h3>
             <p>Small section heading</p>
           </div>
         </div>
         <div class="input-text">
-          <div class="input-icon"><img src="H5Vector-4.svg" alt="" /></div>
+          <div class="input-icon">
+            <img src="src/img/icons/H5Vector-4.svg" alt="" />
+          </div>
           <div class="input-hp">
             <h3>Heading 5</h3>
             <p>Smaller section heading</p>
           </div>
         </div>
         <div class="input-text">
-          <div class="input-icon"><img src="H6Vector-5.svg" alt="" /></div>
+          <div class="input-icon">
+            <img src="src/img/icons/H6Vector-5.svg" alt="" />
+          </div>
           <div class="input-hp">
             <h3>Heading 6</h3>
             <p>Smallest section heading</p>
           </div>
         </div>
         <div class="input-text">
-          <div class="input-icon"><img src="IMGGroup.svg" alt="" /></div>
+          <div class="input-icon">
+            <img src="src/img/icons/IMGGroup.svg" alt="" />
+          </div>
           <div class="input-hp">
             <h3>Image</h3>
             <p>Add an image</p>
@@ -187,7 +201,7 @@ export class BlockMenuElement extends MenuBase {
         </div>
         <div class="input-text">
           <div class="input-icon">
-            <img src="Bullet listVector.svg" alt="" />
+            <img src="src/img/icons/Bullet listVector.svg" alt="" />
           </div>
           <div class="input-hp">
             <h3>Bullet list</h3>
@@ -196,7 +210,9 @@ export class BlockMenuElement extends MenuBase {
         </div>
         <div class="input-text">
           <div class="input-icon">
-            <img src="fluent_text-number-list-ltr-24-filled.svg" alt="" />
+            <img
+              src="src/img/icons/fluent_text-number-list-ltr-24-filled.svg"
+              alt="" />
           </div>
           <div class="input-hp">
             <h3>Numbered list</h3>
@@ -205,7 +221,7 @@ export class BlockMenuElement extends MenuBase {
         </div>
         <div class="input-text">
           <div class="input-icon">
-            <img src="carbon_letter-aa-large-2.svg" alt="" />
+            <img src="src/img/icons/carbon_letter-aa-large-2.svg" alt="" />
           </div>
           <div class="input-hp">
             <h3>Code</h3>
