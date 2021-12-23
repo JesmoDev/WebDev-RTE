@@ -116,120 +116,35 @@ export class BlockMenuElement extends MenuBase {
 
     return filteredItems.map(
       (editorCommand: EditorCommand) =>
-        html`<div @click=${() => this.onSelectItem(editorCommand)}>
-          ${editorCommand.name}${editorCommand.description}
+        html`<div @click=${() => editorCommand.command()} class="input-text">
+          <div class="input-icon">
+            <img src=${editorCommand.icon} alt="" />
+          </div>
+          <div class="input-hp">
+            <h3>${editorCommand.name}</h3>
+            <p>${editorCommand.description}</p>
+          </div>
         </div>`
     );
+  }
+
+  private onInput(e: InputEvent) {
+    this.search = (e.target as HTMLInputElement).value;
   }
 
   protected render(): TemplateResult {
     return html`<div id="block-menu">
       <div class="mainBlockMenu">
         <div class="input-field">
-          <input type="text" id="input" name="input" value="Search..." />
+          <input
+            type="text"
+            id="input"
+            @input=${this.onInput}
+            name="input"
+            value=${this.search} />
         </div>
         <br />
-        <div class="input-text">
-          <div class="input-icon">
-            <img src="src/img/icons/carbon_letter-aa-large-2.svg" alt="" />
-          </div>
-          <div class="input-hp">
-            <h3>Text</h3>
-            <p>Just start writing with plain text</p>
-          </div>
-        </div>
-        <div class="input-text">
-          <div class="input-icon">
-            <img src="src/img/icons/H1Vector-1.svg" alt="" />
-          </div>
-          <div class="input-hp">
-            <h3>Heading 1</h3>
-            <p>Biggest section heading</p>
-          </div>
-        </div>
-        <div class="input-text">
-          <div class="input-icon">
-            <img src="src/img/icons/H2Vector-3.svg" alt="" />
-          </div>
-          <div class="input-hp">
-            <h3>Heading 2</h3>
-            <p>Bigger section heading</p>
-          </div>
-        </div>
-        <div class="input-text">
-          <div class="input-icon">
-            <img src="src/img/icons/H3Vector-2.svg" alt="" />
-          </div>
-          <div class="input-hp">
-            <h3>Heading 3</h3>
-            <p>Big section heading</p>
-          </div>
-        </div>
-        <div class="input-text">
-          <div class="input-icon">
-            <img src="src/img/icons/H4Vector.svg" alt="" />
-          </div>
-          <div class="input-hp">
-            <h3>Heading 4</h3>
-            <p>Small section heading</p>
-          </div>
-        </div>
-        <div class="input-text">
-          <div class="input-icon">
-            <img src="src/img/icons/H5Vector-4.svg" alt="" />
-          </div>
-          <div class="input-hp">
-            <h3>Heading 5</h3>
-            <p>Smaller section heading</p>
-          </div>
-        </div>
-        <div class="input-text">
-          <div class="input-icon">
-            <img src="src/img/icons/H6Vector-5.svg" alt="" />
-          </div>
-          <div class="input-hp">
-            <h3>Heading 6</h3>
-            <p>Smallest section heading</p>
-          </div>
-        </div>
-        <div class="input-text">
-          <div class="input-icon">
-            <img src="src/img/icons/IMGGroup.svg" alt="" />
-          </div>
-          <div class="input-hp">
-            <h3>Image</h3>
-            <p>Add an image</p>
-          </div>
-        </div>
-        <div class="input-text">
-          <div class="input-icon">
-            <img src="src/img/icons/Bullet listVector.svg" alt="" />
-          </div>
-          <div class="input-hp">
-            <h3>Bullet list</h3>
-            <p>Simple bulleted list</p>
-          </div>
-        </div>
-        <div class="input-text">
-          <div class="input-icon">
-            <img
-              src="src/img/icons/fluent_text-number-list-ltr-24-filled.svg"
-              alt="" />
-          </div>
-          <div class="input-hp">
-            <h3>Numbered list</h3>
-            <p>List with numbering</p>
-          </div>
-        </div>
-        <div class="input-text">
-          <div class="input-icon">
-            <img src="src/img/icons/carbon_letter-aa-large-2.svg" alt="" />
-          </div>
-          <div class="input-hp">
-            <h3>Code</h3>
-            <p>Code snippets</p>
-          </div>
-        </div>
+        ${this.renderBlockItems()}
       </div>
     </div> `;
   }

@@ -51,7 +51,7 @@ export const searchCommands = (
     x =>
       (x.name.toLocaleLowerCase().includes(search) ||
         x.aliases.some(y => y.includes(search))) &&
-      true
+      x.tags.some(z => z.includes(tag))
   );
 
   return filtered;
@@ -104,6 +104,15 @@ export const getCommands = (): EditorCommand[] => [
     icon: '',
   },
   {
+    name: 'text',
+    description: 'paragraph',
+    aliases: ['p', 'paragraph', 'word'],
+    keyboardShortcut: ['ctrl', 'alt', '0'],
+    command: () => editor.commands.setParagraph(),
+    tags: ['block'],
+    icon: 'src/img/icons/carbon_letter-aa-large-2.svg',
+  },
+  {
     name: 'heading 1',
     description: 'set heading 1',
     aliases: ['h1', 'head1', 'header1', 'heading1'],
@@ -136,7 +145,7 @@ export const getCommands = (): EditorCommand[] => [
     aliases: ['h4', 'head4', 'header4', 'heading4'],
     keyboardShortcut: ['ctrl', 'alt', '4'],
     command: () => editor.commands.toggleHeading({ level: 4 }),
-    tags: [],
+    tags: ['block'],
     icon: 'src/img/icons/H4Vector.svg',
   },
   {
