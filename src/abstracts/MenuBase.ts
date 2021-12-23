@@ -1,6 +1,6 @@
 import { css, LitElement } from 'lit';
-import { property } from 'lit/decorators.js';
-import { focusEditor } from '../helpers/editorHelper';
+import { property, state } from 'lit/decorators.js';
+import { editor } from '../helpers/editorHelper';
 
 export abstract class MenuBase extends LitElement {
   static styles = [
@@ -14,8 +14,19 @@ export abstract class MenuBase extends LitElement {
 
   parent: HTMLElement;
 
+  @state()
+  _position: { top: number; left: number };
+
   @property({ attribute: false })
-  public position: { top: number; left: number };
+  public get position() {
+    return this._position;
+  }
+  public set position(newValue: { top: number; left: number }) {
+    const oldValue = this._position;
+    this._position = newValue;
+    this.updatePosition();
+    this.requestUpdate('position', oldValue);
+  }
 
   private onClickHandler = this.onClick.bind(this);
   private onClick(e: MouseEvent): void {
@@ -24,23 +35,30 @@ export abstract class MenuBase extends LitElement {
     }
   }
 
-  connectedCallback(): void {
-    this.style.top = `${this.position.top + this.parentElement.scrollTop}px`;
-    this.style.left = `${this.position.left - this.parentElement.offsetLeft}px`;
+  updatePosition(): void {
+    if (this.position) {
+      this.style.top = `${this.position.top + this.parent.scrollTop}px`;
+      this.style.left = `${this.position.left - this.parent.offsetLeft}px`;
+    }
+  }
 
-    this.parent = this.parentElement;
+  connectedCallback(): void {
     super.connectedCallback();
-    this.parent.addEventListener('click', this.onClickHandler);
+    this.parent = this.parentElement;
+    this.updatePosition();
+
+    setTimeout(() => {
+      this.parent.addEventListener('click', this.onClickHandler);
+    }, 100);
   }
 
   disconnectedCallback(): void {
     super.disconnectedCallback();
-
     this.parent.removeEventListener('click', this.onClickHandler);
   }
 
   protected closeMenu(): void {
-    focusEditor();
+    editor.view.focus();
     this.parent.removeEventListener('click', this.onClickHandler);
     this.remove();
   }

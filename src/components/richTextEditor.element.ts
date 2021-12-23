@@ -2,9 +2,9 @@ import '../main';
 import { LitElement, html, css, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { Editor } from '@tiptap/core';
-import { BlockMenuElement } from './blockMenu.element';
 import { initEditor } from '../helpers/editorHelper';
 import { MenuBase } from '../abstracts/MenuBase';
+import { HoverMenuElement } from './hoverMenu.element';
 @customElement('rich-text-editor')
 export class RichTextEditorElement extends LitElement {
   static styles = [
@@ -92,15 +92,8 @@ export class RichTextEditorElement extends LitElement {
   @state()
   private _editor: Editor;
 
-  @property({ attribute: false })
-  public get editor() {
-    return this._editor;
-  }
-  private set editor(newValue) {
-    const oldValue = this._editor;
-    this._editor = newValue;
-    this.requestUpdate('editor', oldValue);
-  }
+  @state()
+  private _currentMenu: MenuBase;
 
   // NON STATE VARIABLES //
   private lastSlashPosition = 0; // used to know where the / is when trying to close the block menu by deleting the / that triggered it
@@ -109,12 +102,13 @@ export class RichTextEditorElement extends LitElement {
   firstUpdated() {
     const mountElement = this.shadowRoot.getElementById('editor');
 
-    this.editor = initEditor(this, mountElement);
-    this.editor.on('update', () => this.onEditorUpdate());
-    this.editor.on('focus', () => this.onEditorFocus());
-    this.editor.on('blur', () => this.onEditorBlur());
+    this._editor = initEditor(this, mountElement);
+    this._editor.on('update', () => this.onEditorUpdate());
+    this._editor.on('focus', () => this.onEditorFocus());
+    this._editor.on('blur', () => this.onEditorBlur());
+    this._editor.on('selectionUpdate', () => this.onEditorSelectionUpdate());
 
-    this.editor.view.focus();
+    this._editor.view.focus();
   }
 
   private onEditorUpdate(): void {
@@ -122,8 +116,8 @@ export class RichTextEditorElement extends LitElement {
   }
 
   private onEditorFocus(): void {
-    this.editor.view.focus();
-    this.editor.commands.setTextSelection(this.lastCaretPosition);
+    this._editor.view.focus();
+    this._editor.commands.setTextSelection(this.lastCaretPosition);
   }
 
   private onEditorBlur(): void {
@@ -137,42 +131,43 @@ export class RichTextEditorElement extends LitElement {
     }
   }
 
+  private onEditorSelectionUpdate(): void {
+    if (!this.hasSelection) return;
+
+    if (this._currentMenu instanceof HoverMenuElement) {
+      this._currentMenu.position = this._editor.view.coordsAtPos(
+        this.getCaretPos
+      );
+    } else {
+      this.openMenu('hover-menu');
+    }
+  }
+
   private get getCaretPos(): number {
     if (this.hasSelection) {
-      return this.editor.state.selection.$head.pos;
+      return this._editor.state.selection.$head.pos;
     } else {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore // For some reason it doesn't know that $cursor exists
-      return this.editor.state.selection.$cursor.pos;
+      return this._editor.state.selection.$cursor.pos;
     }
   }
 
   private get hasSelection(): boolean {
-    const from = this.editor.state.selection.ranges[0].$from.pos;
-    const to = this.editor.state.selection.ranges[0].$to.pos;
+    const from = this._editor.state.selection.ranges[0].$from.pos;
+    const to = this._editor.state.selection.ranges[0].$to.pos;
 
     return to - from > 0;
   }
 
   private openMenu(tag: string): void {
-    const pos = this.editor.view.coordsAtPos(this.getCaretPos);
+    const pos = this._editor.view.coordsAtPos(this.getCaretPos);
     const menu = document.createElement(tag) as MenuBase;
-    menu.position = pos;
+    this._currentMenu = menu;
 
     const mountElement = this.shadowRoot.getElementById('editor');
     mountElement.insertBefore(menu, mountElement.firstChild);
-  }
-
-  private onMenuClosed(): void {
-    console.log('hello');
-
-    // do this to delete the slash
-    this.editor.view.focus();
-    this.editor.commands.setTextSelection({
-      from: this.lastSlashPosition,
-      to: this.getCaretPos,
-    });
-    this.editor.commands.deleteSelection();
+    menu.position = pos;
   }
 
   protected render(): TemplateResult {
@@ -180,7 +175,7 @@ export class RichTextEditorElement extends LitElement {
       <div class="panel-left"></div>
       <div id="editor" @keydown=${this.onKeydown}></div>
       <div class="panel-right">
-        <shortcut-menu></shortcut-menu>
+        <shortcut-panel></shortcut-panel>
       </div>
     </div>`;
   }
