@@ -9,7 +9,7 @@ export class BlockMenuElement extends MenuBase {
     css`
       .mainBlockMenu {
         border: solid 3px #3647ab;
-        height: 700px;
+        height: 450px;
         max-width: 250px;
         padding: 2px;
         padding-left: 1%;
@@ -30,8 +30,8 @@ export class BlockMenuElement extends MenuBase {
 
       .input-icon {
         border: 2px solid #1b264fc6;
-        height: 40px;
-        width: 40px;
+        height: 20px;
+        width: 20px;
 
         text-align: center;
         border-radius: 5px;
@@ -40,33 +40,38 @@ export class BlockMenuElement extends MenuBase {
       .input-text {
         display: flex;
         float: left;
-        padding-bottom: 12px;
-        width: 260px;
+        padding: none;
+        width: 80%;
+
+        margin: none;
+        margin-bottom: 3%;
       }
 
       .input-hp {
-        width: 200px;
-        height: 40px;
+        width: 100%;
+        height: auto;
         padding: 0;
         margin: 0;
-        margin-left: 20px;
+        margin-left: 10px;
         text-align: justify;
       }
 
       .input-hp h3 {
-        font-size: 15px;
+        font-size: 10px;
         margin: 0;
-        padding-bottom: 3px;
+        padding-bottom: 0;
       }
 
       .input-hp p {
-        font-size: 10px;
+        font-size: 8px;
         margin-top: 4px;
+        margin-bottom: 0;
       }
 
       .input-hp:hover {
-        border-bottom: #f5c1bc 4px solid;
+        border-bottom: #f5c1bc 2px solid;
         transition-timing-function: ease;
+        width: 100%;
       }
     `,
   ];
