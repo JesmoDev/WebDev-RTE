@@ -47,9 +47,7 @@ export abstract class MenuBase extends LitElement {
     this.parent = this.parentElement;
     this.updatePosition();
 
-    setTimeout(() => {
-      this.parent.addEventListener('click', this.onClickHandler);
-    }, 100);
+    this.parent.addEventListener('click', this.onClickHandler);
   }
 
   disconnectedCallback(): void {
@@ -59,6 +57,7 @@ export abstract class MenuBase extends LitElement {
 
   protected closeMenu(): void {
     editor.view.focus();
+    this.dispatchEvent(new CustomEvent('onClose'));
     this.parent.removeEventListener('click', this.onClickHandler);
     this.remove();
   }

@@ -4,6 +4,7 @@ import Underline from '@tiptap/extension-underline';
 import TextAlign from '@tiptap/extension-text-align';
 import { RichTextEditorElement } from '../components/richTextEditor.element';
 import exampleContent from './exampleContent';
+import BubbleMenu from '@tiptap/extension-bubble-menu';
 
 export interface EditorCommand {
   name: string;
@@ -14,13 +15,12 @@ export interface EditorCommand {
 }
 
 let editor: Editor;
-let _rte: RichTextEditorElement;
 
 export { editor };
 
 export const initEditor = (
-  rte: RichTextEditorElement,
-  mountElement: Element
+  mountElement: Element,
+  hoverMenu: HTMLElement
 ): Editor => {
   if (editor) {
     return editor;
@@ -30,13 +30,15 @@ export const initEditor = (
       extensions: [
         StarterKit,
         Underline,
+        BubbleMenu.configure({
+          element: hoverMenu,
+        }),
         TextAlign.configure({
           types: ['heading', 'paragraph'],
         }),
       ],
       content: exampleContent,
     });
-    _rte = rte;
     return editor;
   }
 };
