@@ -1,12 +1,10 @@
 import { html, css, TemplateResult, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { MenuBase } from '../abstracts/MenuBase';
 import { getCommands, editor } from '../helpers/editorHelper';
 
 @customElement('hover-menu')
 export class HoverMenuElement extends LitElement {
   static styles = [
-    ...MenuBase.styles,
     css`
       .hover-menu {
         background-color: #3647ab;
