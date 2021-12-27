@@ -73,11 +73,23 @@ export class BlockMenuElement extends MenuBase {
         transition-timing-function: ease;
         width: 100%;
       }
+
+      .selected-item {
+        background: red;
+      }
     `,
   ];
 
   @state()
-  private search = '';
+  private _search = '';
+
+  @state()
+  private _index = 0;
+
+  protected firstUpdated(): void {
+    const input = this.shadowRoot.getElementById('input');
+    input.focus();
+  }
 
   connectedCallback(): void {
     super.connectedCallback();
@@ -93,21 +105,35 @@ export class BlockMenuElement extends MenuBase {
 
   private onKeyDownHandler = this.onKeyDown.bind(this);
   private onKeyDown(e: KeyboardEvent): void {
-    e.preventDefault();
     if (e.key === 'Backspace') {
-      if (!this.search) {
+      if (!this._search) {
+        e.preventDefault();
         this.closeMenu();
       }
-      this.search = this.search.slice(0, -1);
+      this._search = this._search.slice(0, -1);
     }
 
     if (e.key === 'Escape') {
       this.closeMenu();
     }
 
-    // Only single characters and no spaces or slashes
-    if (/^(?=\S)(?!\/)(.{1})$/.test(e.key)) {
-      this.search = this.search + e.key.toLowerCase();
+    if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      this._index = Math.max(0, this._index - 1);
+    }
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      this._index = Math.min(
+        searchCommands(this._search, 'block').length - 1,
+        this._index + 1
+      );
+    }
+
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      // TODO: This should be cashed
+      this.onSelectItem(searchCommands(this._search, 'block')[this._index]);
     }
   }
 
@@ -117,11 +143,13 @@ export class BlockMenuElement extends MenuBase {
   }
 
   private renderBlockItems(): TemplateResult[] {
-    const filteredItems = searchCommands(this.search, 'block');
+    const filteredItems = searchCommands(this._search, 'block');
 
     return filteredItems.map(
-      (editorCommand: EditorCommand) =>
-        html`<div @click=${() => editorCommand.command()} class="input-text">
+      (editorCommand: EditorCommand, index) =>
+        html`<div
+          @click=${() => this.onSelectItem(editorCommand)}
+          class="input-text ${index === this._index ? 'selected-item' : ''}">
           <div class="input-icon">
             <img src=${editorCommand.icon} alt="" />
           </div>
@@ -134,7 +162,7 @@ export class BlockMenuElement extends MenuBase {
   }
 
   private onInput(e: InputEvent) {
-    this.search = (e.target as HTMLInputElement).value;
+    this._search = (e.target as HTMLInputElement).value;
   }
 
   protected render(): TemplateResult {
@@ -146,7 +174,7 @@ export class BlockMenuElement extends MenuBase {
             id="input"
             @input=${this.onInput}
             name="input"
-            value=${this.search} />
+            value=${this._search} />
         </div>
         <br />
         ${this.renderBlockItems()}
