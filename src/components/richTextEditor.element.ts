@@ -116,12 +116,12 @@ export class RichTextEditorElement extends LitElement {
   }
 
   private onEditorFocus(): void {
-    this._editor.view.focus();
-    this._editor.commands.setTextSelection(this.lastCaretPosition);
+    // this._editor.view.focus();
+    // this._editor.commands.setTextSelection(this.lastCaretPosition);
   }
 
   private onEditorBlur(): void {
-    this.lastCaretPosition = this.getCaretPos;
+    // this.lastCaretPosition = this.getCaretPos;
   }
 
   private onKeydown(e: KeyboardEvent): void {
