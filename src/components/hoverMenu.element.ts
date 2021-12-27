@@ -1,13 +1,14 @@
-import { html, css, TemplateResult } from 'lit';
+import { html, css, TemplateResult, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { MenuBase } from '../abstracts/MenuBase';
 import { getCommands, editor } from '../helpers/editorHelper';
 
 @customElement('hover-menu')
-export class HoverMenuElement extends MenuBase {
+export class HoverMenuElement extends LitElement {
   static styles = [
-    ...MenuBase.styles,
     css`
+      :host {
+        user-select: none;
+      }
       .hover-menu {
         background-color: #3647ab;
         width: 500px;
@@ -88,26 +89,27 @@ export class HoverMenuElement extends MenuBase {
             </ul>
           </li>
         </ul>
-        <div @click=${() => editor.commands.toggleBold()}>
+        <div @click=${() => editor.chain().focus().toggleBold().run()}>
           <img src="src/img/icons/icon8-bold-50.svg" alt="" />
         </div>
-        <div @click=${() => editor.commands.toggleItalic()}>
+        <div @click=${() => editor.chain().focus().toggleItalic().run()}>
           <img src="src/img/icons/icon8-italic-50.svg" alt="" />
         </div>
-        <div @click=${() => editor.commands.toggleUnderline()}>
+        <div @click=${() => editor.chain().focus().toggleUnderline().run()}>
           <img src="src/img/icons/icon8-underline-50.svg" alt="" />
         </div>
-        <div @click=${() => editor.commands.toggleStrike()}>
+        <div @click=${() => editor.chain().focus().toggleStrike().run()}>
           <img src="src/img/icons/icon8-strikethrough-50.svg" alt="" />
         </div>
         <div><img src="src/img/icons/icon8-link-50.svg" alt="" /></div>
-        <div @click=${() => editor.commands.setTextAlign('left')}>
+        <div @click=${() => editor.chain().focus().setTextAlign('left').run()}>
           <img src="src/img/icons/icon8-align-left-50.svg" alt="" />
         </div>
-        <div @click=${() => editor.commands.setTextAlign('center')}>
+        <div
+          @click=${() => editor.chain().focus().setTextAlign('center').run()}>
           <img src="src/img/icons/icon8-align-justify-50.svg" alt="" />
         </div>
-        <div @click=${() => editor.commands.setTextAlign('right')}>
+        <div @click=${() => editor.chain().focus().setTextAlign('right').run()}>
           <img src="src/img/icons/icon8-align-right-50.svg" alt="" />
         </div>
       </div>
