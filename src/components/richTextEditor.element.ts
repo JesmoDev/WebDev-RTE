@@ -101,12 +101,12 @@ export class RichTextEditorElement extends LitElement {
 
   firstUpdated() {
     const mountElement = this.shadowRoot.getElementById('editor');
+    const hoverMenu = this.shadowRoot.getElementById('hover-menu');
 
-    this._editor = initEditor(this, mountElement);
+    this._editor = initEditor(mountElement, hoverMenu);
     this._editor.on('update', () => this.onEditorUpdate());
     this._editor.on('focus', () => this.onEditorFocus());
     this._editor.on('blur', () => this.onEditorBlur());
-    this._editor.on('selectionUpdate', () => this.onEditorSelectionUpdate());
 
     this._editor.view.focus();
   }
@@ -116,30 +116,20 @@ export class RichTextEditorElement extends LitElement {
   }
 
   private onEditorFocus(): void {
-    this._editor.view.focus();
-    this._editor.commands.setTextSelection(this.lastCaretPosition);
+    // this._editor.view.focus();
+    // this._editor.commands.setTextSelection(this.lastCaretPosition);
   }
 
   private onEditorBlur(): void {
-    this.lastCaretPosition = this.getCaretPos;
+    // this.lastCaretPosition = this.getCaretPos;
   }
 
   private onKeydown(e: KeyboardEvent): void {
     if (e.ctrlKey && e.key === 'k') {
       e.preventDefault();
-      this.openMenu('block-menu');
-    }
-  }
-
-  private onEditorSelectionUpdate(): void {
-    if (!this.hasSelection) return;
-
-    if (this._currentMenu instanceof HoverMenuElement) {
-      this._currentMenu.position = this._editor.view.coordsAtPos(
-        this.getCaretPos
-      );
-    } else {
-      this.openMenu('hover-menu');
+      if (!(this._currentMenu instanceof MenuBase)) {
+        this.openMenu('block-menu');
+      }
     }
   }
 
@@ -168,6 +158,7 @@ export class RichTextEditorElement extends LitElement {
     const mountElement = this.shadowRoot.getElementById('editor');
     mountElement.insertBefore(menu, mountElement.firstChild);
     menu.position = pos;
+    menu.addEventListener('onClose', () => (this._currentMenu = null));
   }
 
   protected render(): TemplateResult {
@@ -177,6 +168,7 @@ export class RichTextEditorElement extends LitElement {
       <div class="panel-right">
         <shortcut-panel></shortcut-panel>
       </div>
+      <hover-menu id="hover-menu"></hover-menu>
     </div>`;
   }
 }
