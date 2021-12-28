@@ -11,22 +11,22 @@ export class HoverMenuElement extends LitElement {
       }
       .hover-menu {
         background-color: #3647ab;
-        width: 500px;
+        width: 450px;
         border-radius: 5px;
         align-items: center;
       }
       .hover-menu div {
         text-decoration: none;
         color: white;
-        font-size: 20px;
+        font-size: 15px;
         padding: 15px;
         display: inline-block;
-
+        cursor: pointer;
         height: auto;
       }
 
       .hover-menu div img {
-        width: 20px;
+        width: 12px;
       }
       ul {
         display: inline;
@@ -54,21 +54,26 @@ export class HoverMenuElement extends LitElement {
 
       .dropdownlist li {
         height: auto;
+        width: 100%;
       }
       .dropdownlist li img {
-        width: 24px;
+        width: 15px;
         float: left;
       }
       .dropdownlist li a {
-        font-size: 18px;
+        font-size: 12px;
         text-align: center;
       }
 
       ul li ul li div {
         display: block !important;
       }
+
       ul li ul li:hover {
-        background: #3648abc6;
+        background: #3647ab;
+      }
+      ul li ul li div:hover {
+        color: #f5c1bc;
       }
     `,
   ];
