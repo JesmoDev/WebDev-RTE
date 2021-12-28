@@ -109,6 +109,7 @@ export class BlockMenuElement extends MenuBase {
         font-size: 10px;
         margin-top: 4px;
         margin-bottom: 0;
+        color: #686565;
       }
 
       .block-items {
