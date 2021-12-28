@@ -2,7 +2,9 @@ import { Editor } from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
 import Underline from '@tiptap/extension-underline';
 import TextAlign from '@tiptap/extension-text-align';
+import Image from '@tiptap/extension-image';
 import { RichTextEditorElement } from '../components/richTextEditor.element';
+import Link from '@tiptap/extension-link';
 import exampleContent from './exampleContent';
 import BubbleMenu from '@tiptap/extension-bubble-menu';
 
@@ -32,6 +34,8 @@ export const initEditor = (
       extensions: [
         StarterKit,
         Underline,
+        Image,
+        Link,
         BubbleMenu.configure({
           element: hoverMenu,
         }),
