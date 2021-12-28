@@ -8,15 +8,16 @@ export class BlockMenuElement extends MenuBase {
     ...MenuBase.styles,
     css`
       :host {
-        border: solid 1px #adadad;
+        border: solid 1px #c7c7c7;
         height: 300px;
         max-width: 250px;
         /* padding: 8px; */
         border-radius: 4px;
-        background-color: white;
-        width: 200px;
+        background-color: #e3dfdf;
+        width: 300px;
         box-sizing: border-box;
         box-shadow: 0 1px 10px 1px rgba(60, 64, 67, 0.4);
+        padding: 1%;
       }
 
       .input-field {
@@ -74,6 +75,7 @@ export class BlockMenuElement extends MenuBase {
         border-radius: 5px;
         display: flex;
         margin: auto;
+        background-color: white;
       }
 
       .input-text {
@@ -82,7 +84,7 @@ export class BlockMenuElement extends MenuBase {
         padding: none;
         width: 100%;
         padding: 0 8px;
-
+        background-color: #e3dfdf;
         margin: none;
         margin-bottom: 8px;
       }
