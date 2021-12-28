@@ -11,7 +11,7 @@ export class HoverMenuElement extends LitElement {
       }
       .hover-menu {
         background-color: #1b264f;
-        width: 29%;
+        width: 450px;
         border-radius: 5px;
         align-items: center;
       }
@@ -21,7 +21,7 @@ export class HoverMenuElement extends LitElement {
         font-size: 15px;
         padding: 15px;
         display: inline-block;
-
+        cursor: pointer;
         height: auto;
       }
 
@@ -54,6 +54,7 @@ export class HoverMenuElement extends LitElement {
 
       .dropdownlist li {
         height: auto;
+        width: 100%;
       }
       .dropdownlist li img {
         width: 15px;
@@ -67,14 +68,12 @@ export class HoverMenuElement extends LitElement {
       ul li ul li div {
         display: block !important;
       }
+
       ul li ul li:hover {
-        background: #3648abc6;
-        ul li ul li:hover {
-          background: #f5c1bc;
-        }
-        ul li ul li div:hover {
-          color: #1b264f;
-        }
+        background: #f5c1bc;
+      }
+      ul li ul li div:hover {
+        color: #1b264f;
       }
     `,
   ];
