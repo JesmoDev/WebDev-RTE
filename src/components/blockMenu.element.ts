@@ -30,9 +30,10 @@ export class BlockMenuElement extends MenuBase {
       }
 
       .input-text:hover .input-hp {
-        border-color: #f5c1bc;
+        background-color: #c7c7c7;
         transition-timing-function: ease;
         width: 100%;
+        border-radius: 3px;
       }
 
       .input-text.selected-item::before {
