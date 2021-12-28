@@ -10,7 +10,7 @@ export class HoverMenuElement extends LitElement {
         user-select: none;
       }
       .hover-menu {
-        background-color: #1b264f;
+        background-color: #3647ab;
         width: 450px;
         border-radius: 5px;
         align-items: center;
@@ -37,7 +37,7 @@ export class HoverMenuElement extends LitElement {
         display: inline-block;
       }
       ul li:hover {
-        background: #1b264f;
+        background: #3647ab;
       }
       ul li:hover ul {
         display: block;
@@ -48,7 +48,7 @@ export class HoverMenuElement extends LitElement {
         display: none;
       }
       ul li ul li {
-        background: #1b264f;
+        background: #3647ab;
         display: block;
       }
 
@@ -70,7 +70,7 @@ export class HoverMenuElement extends LitElement {
       }
 
       ul li ul li:hover {
-        background: #1b264f;
+        background: #3647ab;
       }
       ul li ul li div:hover {
         color: #f5c1bc;
