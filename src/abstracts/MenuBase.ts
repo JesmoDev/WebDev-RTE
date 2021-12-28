@@ -9,9 +9,9 @@ export abstract class MenuBase extends LitElement {
         position: absolute;
         z-index: 100;
         box-shadow: 0 1px 10px 1px rgba(60, 64, 67, 0.4);
-        background: white;
+        background: #ecedec;
         border-radius: 4px;
-        border: solid 1px #adadad;
+        border: solid 1px #c7c7c7;
       }
     `,
   ];
@@ -41,7 +41,7 @@ export abstract class MenuBase extends LitElement {
 
   updatePosition(): void {
     if (this.position) {
-      this.style.top = `${this.position.top + this.parent.scrollTop}px`;
+      this.style.top = `${this.position.top}px`;
       this.style.left = `${this.position.left - this.parent.offsetLeft}px`;
     }
   }

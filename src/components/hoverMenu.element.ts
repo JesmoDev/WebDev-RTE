@@ -8,72 +8,91 @@ export class HoverMenuElement extends LitElement {
     css`
       :host {
         user-select: none;
+        width: fit-content;
+        border-radius: 4px;
       }
-      .hover-menu {
+      #hover-menu {
+        box-shadow: 0 1px 10px 1px rgba(60, 64, 67, 0.4);
         background-color: #3647ab;
-        width: 450px;
-        border-radius: 5px;
-        align-items: center;
-      }
-      .hover-menu div {
-        text-decoration: none;
         color: white;
-        font-size: 15px;
-        padding: 15px;
-        display: inline-block;
+        width: fit-content;
+        border-radius: 4px;
+        align-items: center;
+        display: flex;
+        gap: 12px;
+      }
+
+      #hover-menu div img {
+        width: 18px;
+        margin: auto;
+      }
+
+      #alignment-group,
+      #mark-group {
+        width: fit-content;
+        display: flex;
+      }
+
+      #alignment-group div,
+      #mark-group div {
         cursor: pointer;
-        height: auto;
+        width: 32px;
+        height: 32px;
+        display: flex;
       }
 
-      .hover-menu div img {
-        width: 12px;
+      #alignment-group div:hover,
+      #mark-group div:hover,
+      #dropdown-text:hover {
+        background: #5666c2;
       }
-      ul {
-        display: inline;
-        margin: 0;
-        padding: 0;
+
+      #dropdown-text {
+        width: 64px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        padding-left: 6px;
+        border-right: 1px solid #ffffff4d;
       }
-      ul li {
-        display: inline-block;
+
+      #dropdown-menu {
+        position: relative;
       }
-      ul li:hover {
-        background: #3647ab;
-      }
-      ul li:hover ul {
-        display: block;
-      }
-      ul li ul {
+
+      #dropdown-menu::after {
+        content: 'V';
+        font-family: sans-serif;
         position: absolute;
-        width: 200px;
-        display: none;
+        top: 11px;
+        font-size: 12px;
+        right: 8px;
+        transform: scaleY(0.6);
       }
-      ul li ul li {
-        background: #3647ab;
+
+      #dropdown-menu:hover #dropdown-list {
         display: block;
       }
 
-      .dropdownlist li {
-        height: auto;
-        width: 100%;
-      }
-      .dropdownlist li img {
-        width: 15px;
-        float: left;
-      }
-      .dropdownlist li a {
-        font-size: 12px;
-        text-align: center;
+      #dropdown-list {
+        display: none;
+        position: absolute;
+        background-color: #3647ab;
+        height: 400px;
+        width: 150px;
+        overflow-y: auto;
       }
 
-      ul li ul li div {
-        display: block !important;
+      ul {
+        padding: 0;
+        margin: 0;
       }
-
-      ul li ul li:hover {
-        background: #3647ab;
+      li {
+        list-style: none;
+        padding: 10px 12px;
       }
-      ul li ul li div:hover {
-        color: #f5c1bc;
+      li:hover {
+        background: #5666c2;
       }
     `,
   ];
@@ -88,44 +107,52 @@ export class HoverMenuElement extends LitElement {
 
   protected render(): TemplateResult {
     return html`
-      <div class="hover-menu">
-        <ul class="dropdownmenu">
-          <li>
-            <div>Text</div>
-            <ul class="dropdownlist">
+      <div id="hover-menu">
+        <div id="dropdown-menu">
+          <div id="dropdown-text">Text</div>
+          <div id="dropdown-list">
+            <ul>
               ${getCommands().map(
                 editorCommand =>
-                  html`<li @click=${() => editorCommand.command()}>
+                  html`<li
+                    class="dropdown-item"
+                    @click=${() => editorCommand.command()}>
                     <div>${editorCommand.name}</div>
                   </li>`
               )}
             </ul>
-          </li>
-        </ul>
-        <div @click=${() => editor.chain().focus().toggleBold().run()}>
-          <img src="src/img/icons/icon8-bold-50.svg" alt="" />
+          </div>
         </div>
-        <div @click=${() => editor.chain().focus().toggleItalic().run()}>
-          <img src="src/img/icons/icon8-italic-50.svg" alt="" />
+        <div id="mark-group">
+          <div @click=${() => editor.chain().focus().toggleBold().run()}>
+            <img src="src/img/icons/icon8-bold-50.svg" alt="" />
+          </div>
+          <div @click=${() => editor.chain().focus().toggleItalic().run()}>
+            <img src="src/img/icons/icon8-italic-50.svg" alt="" />
+          </div>
+          <div @click=${() => editor.chain().focus().toggleUnderline().run()}>
+            <img src="src/img/icons/icon8-underline-50.svg" alt="" />
+          </div>
+          <div @click=${() => editor.chain().focus().toggleStrike().run()}>
+            <img src="src/img/icons/icon8-strikethrough-50.svg" alt="" />
+          </div>
+          <div @click=${this.handleLink}>
+            <img src="src/img/icons/icon8-link-50.svg" alt="" />
+          </div>
         </div>
-        <div @click=${() => editor.chain().focus().toggleUnderline().run()}>
-          <img src="src/img/icons/icon8-underline-50.svg" alt="" />
-        </div>
-        <div @click=${() => editor.chain().focus().toggleStrike().run()}>
-          <img src="src/img/icons/icon8-strikethrough-50.svg" alt="" />
-        </div>
-        <div @click=${this.handleLink}>
-          <img src="src/img/icons/icon8-link-50.svg" alt="" />
-        </div>
-        <div @click=${() => editor.chain().focus().setTextAlign('left').run()}>
-          <img src="src/img/icons/icon8-align-left-50.svg" alt="" />
-        </div>
-        <div
-          @click=${() => editor.chain().focus().setTextAlign('center').run()}>
-          <img src="src/img/icons/icon8-align-justify-50.svg" alt="" />
-        </div>
-        <div @click=${() => editor.chain().focus().setTextAlign('right').run()}>
-          <img src="src/img/icons/icon8-align-right-50.svg" alt="" />
+        <div id="alignment-group">
+          <div
+            @click=${() => editor.chain().focus().setTextAlign('left').run()}>
+            <img src="src/img/icons/icon8-align-left-50.svg" alt="" />
+          </div>
+          <div
+            @click=${() => editor.chain().focus().setTextAlign('center').run()}>
+            <img src="src/img/icons/icon8-align-justify-50.svg" alt="" />
+          </div>
+          <div
+            @click=${() => editor.chain().focus().setTextAlign('right').run()}>
+            <img src="src/img/icons/icon8-align-right-50.svg" alt="" />
+          </div>
         </div>
       </div>
     `;

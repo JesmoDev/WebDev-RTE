@@ -21,10 +21,10 @@ export class LinkMenuElement extends MenuBase {
         width: 100%;
         font-size: inherit;
         font-family: inherit;
-        padding: 8px;
+        padding: 6px 8px;
         background: white;
-        border: solid 1px #adadad;
-        border-radius: 4px;
+        border: solid 1px #c7c7c7;
+        border-radius: 2px;
       }
     `,
   ];

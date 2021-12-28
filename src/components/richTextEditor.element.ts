@@ -151,15 +151,16 @@ export class RichTextEditorElement extends LitElement {
   }
 
   public openMenu(tag: string): void {
-    console.log('lol what', tag);
-
     const pos = this._editor.view.coordsAtPos(this.getCaretPos);
     const menu = document.createElement(tag) as MenuBase;
     this._currentMenu = menu;
 
     const mountElement = this.shadowRoot.getElementById('editor');
     mountElement.insertBefore(menu, mountElement.firstChild);
-    menu.position = pos;
+    menu.position = {
+      top: pos.top + this.scrollTop,
+      left: pos.left + this.scrollLeft,
+    };
     menu.addEventListener('onClose', () => (this._currentMenu = null));
   }
 

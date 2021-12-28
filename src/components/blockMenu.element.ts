@@ -19,24 +19,31 @@ export class BlockMenuElement extends MenuBase {
         margin: 8px 8px;
       }
 
+      .block-items {
+        width: 100%;
+        height: 245px;
+        display: flex;
+        overflow-y: auto;
+        overflow-x: hidden;
+        flex-direction: column;
+        gap: 6px;
+      }
+
       .input-text {
         position: relative;
         cursor: pointer;
-      }
-
-      .input-text:hover .input-hp {
-        background-color: #c7c7c7;
-        transition-timing-function: ease;
+        display: flex;
         width: 100%;
-        border-radius: 3px;
+        padding: 0 8px;
       }
 
-      .input-text.selected-item::before {
+      .input-text.selected-item::before,
+      .input-text:hover::before {
         content: '';
         width: calc(100% + 16px);
         height: calc(100% + 8px);
         position: absolute;
-        background: #e1e1e1;
+        background: #c7c7c7;
         inset: 0;
         z-index: -1;
         left: -8px;
@@ -49,40 +56,27 @@ export class BlockMenuElement extends MenuBase {
         width: 100%;
         font-size: inherit;
         font-family: inherit;
-        padding: 8px;
+        padding: 6px 8px;
         background: white;
-        border: solid 1px #adadad;
-        border-radius: 4px;
+        border: solid 1px #c7c7c7;
+        border-radius: 2px;
       }
 
       .input-icon img {
-        width: 70%;
-        height: 100%;
         margin: auto;
       }
 
       .input-icon {
-        border: 1px solid #adadad;
+        border: 1px solid #c7c7c7;
         min-height: 28px;
         min-width: 28px;
         max-height: 28px;
         max-width: 28px;
         text-align: center;
-        border-radius: 5px;
+        border-radius: 2px;
         display: flex;
         margin: auto;
         background-color: white;
-      }
-
-      .input-text {
-        display: flex;
-        float: left;
-        padding: none;
-        width: 100%;
-        padding: 0 8px;
-        background-color: #e3dfdf;
-        margin: none;
-        margin-bottom: 8px;
       }
 
       .input-hp {
@@ -106,15 +100,6 @@ export class BlockMenuElement extends MenuBase {
         margin-top: 4px;
         margin-bottom: 0;
         color: #686565;
-      }
-
-      .block-items {
-        width: 100%;
-        height: 245px;
-        overflow-y: auto;
-        overflow-x: hidden;
-        flex-direction: column;
-        gap: 4px;
       }
     `,
   ];
