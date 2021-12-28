@@ -12,6 +12,8 @@ export interface EditorCommand {
   aliases: string[];
   keyboardShortcut: string[];
   command(): void;
+  icon: string;
+  tags: string[];
 }
 
 let editor: Editor;
@@ -43,11 +45,15 @@ export const initEditor = (
   }
 };
 
-export const searchCommands = (search: string): EditorCommand[] => {
+export const searchCommands = (
+  search: string,
+  tag: string
+): EditorCommand[] => {
   const filtered = getCommands().filter(
     x =>
-      x.name.toLocaleLowerCase().includes(search) ||
-      x.aliases.some(y => y.includes(search))
+      (x.name.toLocaleLowerCase().includes(search) ||
+        x.aliases.some(y => y.includes(search))) &&
+      x.tags.some(z => z.includes(tag))
   );
 
   return filtered;
@@ -59,6 +65,8 @@ export const getCommands = (): EditorCommand[] => [
     description: 'make text bold',
     aliases: ['heavy'],
     keyboardShortcut: ['ctrl', 'b'],
+    tags: [],
+    icon: '',
     command: () => editor.chain().focus().toggleBold().run(),
   },
   {
@@ -66,6 +74,8 @@ export const getCommands = (): EditorCommand[] => [
     description: 'make text italic',
     aliases: ['cursive', 'italic'],
     keyboardShortcut: ['ctrl', 'i'],
+    tags: [],
+    icon: '',
     command: () => editor.chain().focus().toggleItalic().run(),
   },
   {
@@ -73,6 +83,8 @@ export const getCommands = (): EditorCommand[] => [
     description: 'underline text',
     aliases: [''],
     keyboardShortcut: ['ctrl', 'u'],
+    tags: [],
+    icon: '',
     command: () => editor.chain().focus().toggleUnderline().run(),
   },
   {
@@ -81,6 +93,8 @@ export const getCommands = (): EditorCommand[] => [
     aliases: [''],
     keyboardShortcut: ['ctrl', 'shift', 'x'],
     command: () => editor.chain().focus().toggleStrike().run(),
+    tags: [],
+    icon: '',
   },
   {
     name: 'code',
@@ -88,6 +102,17 @@ export const getCommands = (): EditorCommand[] => [
     aliases: [''],
     keyboardShortcut: ['ctrl', 'e'],
     command: () => editor.chain().focus().toggleCode().run(),
+    tags: [],
+    icon: '',
+  },
+  {
+    name: 'text',
+    description: 'paragraph',
+    aliases: ['p', 'paragraph', 'word'],
+    keyboardShortcut: ['ctrl', 'alt', '0'],
+    command: () => editor.commands.setParagraph(),
+    tags: ['block'],
+    icon: 'src/img/icons/carbon_letter-aa-large-2.svg',
   },
   {
     name: 'heading 1',
@@ -95,6 +120,8 @@ export const getCommands = (): EditorCommand[] => [
     aliases: ['h1', 'head1', 'header1', 'heading1'],
     keyboardShortcut: ['ctrl', 'alt', '1'],
     command: () => editor.chain().focus().toggleHeading({ level: 1 }).run(),
+    tags: ['block'],
+    icon: 'src/img/icons/H1Vector.svg',
   },
   {
     name: 'heading 2',
@@ -102,6 +129,8 @@ export const getCommands = (): EditorCommand[] => [
     aliases: ['h2', 'head2', 'header2', 'heading2'],
     keyboardShortcut: ['ctrl', 'alt', '2'],
     command: () => editor.chain().focus().toggleHeading({ level: 2 }).run(),
+    tags: ['block'],
+    icon: 'src/img/icons/H2Vector.svg',
   },
   {
     name: 'heading 3',
@@ -109,6 +138,8 @@ export const getCommands = (): EditorCommand[] => [
     aliases: ['h3', 'head3', 'header3', 'heading3'],
     keyboardShortcut: ['ctrl', 'alt', '3'],
     command: () => editor.chain().focus().toggleHeading({ level: 3 }).run(),
+    tags: ['block'],
+    icon: 'src/img/icons/H3Vector.svg',
   },
   {
     name: 'heading 4',
@@ -116,6 +147,8 @@ export const getCommands = (): EditorCommand[] => [
     aliases: ['h4', 'head4', 'header4', 'heading4'],
     keyboardShortcut: ['ctrl', 'alt', '4'],
     command: () => editor.chain().focus().toggleHeading({ level: 4 }).run(),
+    tags: ['block'],
+    icon: 'src/img/icons/H4Vector.svg',
   },
   {
     name: 'heading 5',
@@ -123,6 +156,8 @@ export const getCommands = (): EditorCommand[] => [
     aliases: ['h5', 'head5', 'header5', 'heading5'],
     keyboardShortcut: ['ctrl', 'alt', '5'],
     command: () => editor.chain().focus().toggleHeading({ level: 5 }).run(),
+    tags: ['block'],
+    icon: 'src/img/icons/H5Vector.svg',
   },
   {
     name: 'heading 6',
@@ -130,6 +165,8 @@ export const getCommands = (): EditorCommand[] => [
     aliases: ['h6', 'head6', 'header6', 'heading6'],
     keyboardShortcut: ['ctrl', 'alt', '6'],
     command: () => editor.chain().focus().toggleHeading({ level: 6 }).run(),
+    tags: ['block'],
+    icon: 'src/img/icons/H6Vector.svg',
   },
   {
     name: 'left align',
@@ -137,6 +174,8 @@ export const getCommands = (): EditorCommand[] => [
     aliases: ['left'],
     keyboardShortcut: ['ctrl', 'shift', 'l'],
     command: () => editor.chain().focus().setTextAlign('left').run(),
+    tags: [],
+    icon: '',
   },
   {
     name: 'center align',
@@ -144,6 +183,8 @@ export const getCommands = (): EditorCommand[] => [
     aliases: ['mid', 'center'],
     keyboardShortcut: ['ctrl', 'shift', 'e'],
     command: () => editor.chain().focus().setTextAlign('center').run(),
+    tags: [],
+    icon: '',
   },
   {
     name: 'right align',
@@ -151,6 +192,8 @@ export const getCommands = (): EditorCommand[] => [
     aliases: ['right'],
     keyboardShortcut: ['ctrl', 'shift', 'r'],
     command: () => editor.chain().focus().setTextAlign('right').run(),
+    tags: [],
+    icon: '',
   },
   {
     name: 'justify align',
@@ -158,5 +201,7 @@ export const getCommands = (): EditorCommand[] => [
     aliases: ['justify', 'mid'],
     keyboardShortcut: ['ctrl', 'shift', 'j'],
     command: () => editor.chain().focus().setTextAlign('justify').run(),
+    tags: [],
+    icon: '',
   },
 ];
