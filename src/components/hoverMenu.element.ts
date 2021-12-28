@@ -1,6 +1,6 @@
 import { html, css, TemplateResult, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { getCommands, editor } from '../helpers/editorHelper';
+import { getCommands, editor, rte } from '../helpers/editorHelper';
 
 @customElement('hover-menu')
 export class HoverMenuElement extends LitElement {
@@ -78,6 +78,14 @@ export class HoverMenuElement extends LitElement {
     `,
   ];
 
+  private handleLink() {
+    if (editor.isActive('link')) {
+      editor.chain().focus().unsetLink().run();
+    } else {
+      rte.openMenu('link-menu');
+    }
+  }
+
   protected render(): TemplateResult {
     return html`
       <div class="hover-menu">
@@ -106,7 +114,9 @@ export class HoverMenuElement extends LitElement {
         <div @click=${() => editor.chain().focus().toggleStrike().run()}>
           <img src="src/img/icons/icon8-strikethrough-50.svg" alt="" />
         </div>
-        <div><img src="src/img/icons/icon8-link-50.svg" alt="" /></div>
+        <div @click=${this.handleLink}>
+          <img src="src/img/icons/icon8-link-50.svg" alt="" />
+        </div>
         <div @click=${() => editor.chain().focus().setTextAlign('left').run()}>
           <img src="src/img/icons/icon8-align-left-50.svg" alt="" />
         </div>

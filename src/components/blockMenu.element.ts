@@ -8,16 +8,11 @@ export class BlockMenuElement extends MenuBase {
     ...MenuBase.styles,
     css`
       :host {
-        border: solid 1px #c7c7c7;
         height: 300px;
         max-width: 250px;
         /* padding: 8px; */
-        border-radius: 4px;
-        background-color: #e3dfdf;
-        width: 300px;
+        width: 200px;
         box-sizing: border-box;
-        box-shadow: 0 1px 10px 1px rgba(60, 64, 67, 0.4);
-        padding: 1%;
       }
 
       .input-field {

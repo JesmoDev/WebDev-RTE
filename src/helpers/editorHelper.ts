@@ -2,7 +2,9 @@ import { Editor } from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
 import Underline from '@tiptap/extension-underline';
 import TextAlign from '@tiptap/extension-text-align';
+import Image from '@tiptap/extension-image';
 import { RichTextEditorElement } from '../components/richTextEditor.element';
+import Link from '@tiptap/extension-link';
 import exampleContent from './exampleContent';
 import BubbleMenu from '@tiptap/extension-bubble-menu';
 
@@ -18,9 +20,12 @@ export interface EditorCommand {
 
 let editor: Editor;
 
-export { editor };
+let rte: RichTextEditorElement;
+
+export { editor, rte };
 
 export const initEditor = (
+  rteElement: RichTextEditorElement,
   mountElement: Element,
   hoverMenu: HTMLElement
 ): Editor => {
@@ -32,6 +37,10 @@ export const initEditor = (
       extensions: [
         StarterKit,
         Underline,
+        Image,
+        Link.configure({
+          openOnClick: false,
+        }),
         BubbleMenu.configure({
           element: hoverMenu,
         }),
@@ -41,6 +50,7 @@ export const initEditor = (
       ],
       content: exampleContent,
     });
+    rte = rteElement;
     return editor;
   }
 };
