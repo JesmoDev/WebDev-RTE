@@ -20,9 +20,12 @@ export interface EditorCommand {
 
 let editor: Editor;
 
-export { editor };
+let rte: RichTextEditorElement;
+
+export { editor, rte };
 
 export const initEditor = (
+  rteElement: RichTextEditorElement,
   mountElement: Element,
   hoverMenu: HTMLElement
 ): Editor => {
@@ -35,7 +38,9 @@ export const initEditor = (
         StarterKit,
         Underline,
         Image,
-        Link,
+        Link.configure({
+          openOnClick: false,
+        }),
         BubbleMenu.configure({
           element: hoverMenu,
         }),
@@ -45,6 +50,7 @@ export const initEditor = (
       ],
       content: exampleContent,
     });
+    rte = rteElement;
     return editor;
   }
 };

@@ -8,6 +8,10 @@ export abstract class MenuBase extends LitElement {
       :host {
         position: absolute;
         z-index: 100;
+        box-shadow: 0 1px 10px 1px rgba(60, 64, 67, 0.4);
+        background: white;
+        border-radius: 4px;
+        border: solid 1px #adadad;
       }
     `,
   ];

@@ -103,7 +103,7 @@ export class RichTextEditorElement extends LitElement {
     const mountElement = this.shadowRoot.getElementById('editor');
     const hoverMenu = this.shadowRoot.getElementById('hover-menu');
 
-    this._editor = initEditor(mountElement, hoverMenu);
+    this._editor = initEditor(this, mountElement, hoverMenu);
     this._editor.on('update', () => this.onEditorUpdate());
     this._editor.on('focus', () => this.onEditorFocus());
     this._editor.on('blur', () => this.onEditorBlur());
@@ -150,7 +150,9 @@ export class RichTextEditorElement extends LitElement {
     return to - from > 0;
   }
 
-  private openMenu(tag: string): void {
+  public openMenu(tag: string): void {
+    console.log('lol what', tag);
+
     const pos = this._editor.view.coordsAtPos(this.getCaretPos);
     const menu = document.createElement(tag) as MenuBase;
     this._currentMenu = menu;
