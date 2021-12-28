@@ -25,9 +25,10 @@ export class BlockMenuElement extends MenuBase {
       }
 
       .input-text:hover .input-hp {
-        border-color: #f5c1bc;
+        background-color: #c7c7c7;
         transition-timing-function: ease;
         width: 100%;
+        border-radius: 3px;
       }
 
       .input-text.selected-item::before {
@@ -70,6 +71,7 @@ export class BlockMenuElement extends MenuBase {
         border-radius: 5px;
         display: flex;
         margin: auto;
+        background-color: white;
       }
 
       .input-text {
@@ -78,7 +80,7 @@ export class BlockMenuElement extends MenuBase {
         padding: none;
         width: 100%;
         padding: 0 8px;
-
+        background-color: #e3dfdf;
         margin: none;
         margin-bottom: 8px;
       }
@@ -103,6 +105,7 @@ export class BlockMenuElement extends MenuBase {
         font-size: 10px;
         margin-top: 4px;
         margin-bottom: 0;
+        color: #686565;
       }
 
       .block-items {
