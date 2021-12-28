@@ -18,8 +18,6 @@ export class BlockMenuElement extends MenuBase {
         box-sizing: border-box;
         box-shadow: 0 1px 10px 1px rgba(60, 64, 67, 0.4);
       }
-      .mainBlockMenu {
-      }
 
       .input-field {
         margin: 8px 8px;
@@ -27,6 +25,13 @@ export class BlockMenuElement extends MenuBase {
 
       .input-text {
         position: relative;
+        cursor: pointer;
+      }
+
+      .input-text:hover .input-hp {
+        border-color: #f5c1bc;
+        transition-timing-function: ease;
+        width: 100%;
       }
 
       .input-text.selected-item::before {
@@ -102,12 +107,6 @@ export class BlockMenuElement extends MenuBase {
         font-size: 10px;
         margin-top: 4px;
         margin-bottom: 0;
-      }
-
-      .input-hp:hover {
-        border-color: #f5c1bc;
-        transition-timing-function: ease;
-        width: 100%;
       }
 
       .block-items {
