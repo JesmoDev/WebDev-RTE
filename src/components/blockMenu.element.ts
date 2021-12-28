@@ -7,19 +7,129 @@ export class BlockMenuElement extends MenuBase {
   static styles = [
     ...MenuBase.styles,
     css`
-      #block-menu {
-        width: 300px;
-        height: 200px;
-        background: white;
-        border: 1px solid black;
+      :host {
+        border: solid 1px #adadad;
+        height: 300px;
+        max-width: 250px;
+        /* padding: 8px; */
         border-radius: 4px;
+        background-color: white;
+        width: 200px;
         box-sizing: border-box;
+        box-shadow: 0 1px 10px 1px rgba(60, 64, 67, 0.4);
+      }
+
+      .input-field {
+        margin: 8px 8px;
+      }
+
+      .input-text {
+        position: relative;
+        cursor: pointer;
+      }
+
+      .input-text:hover .input-hp {
+        border-color: #f5c1bc;
+        transition-timing-function: ease;
+        width: 100%;
+      }
+
+      .input-text.selected-item::before {
+        content: '';
+        width: calc(100% + 16px);
+        height: calc(100% + 8px);
+        position: absolute;
+        background: #e1e1e1;
+        inset: 0;
+        z-index: -1;
+        left: -8px;
+        top: -4px;
+      }
+
+      input {
+        box-sizing: border-box;
+        outline: none;
+        width: 100%;
+        font-size: inherit;
+        font-family: inherit;
+        padding: 8px;
+        background: white;
+        border: solid 1px #adadad;
+        border-radius: 4px;
+      }
+
+      .input-icon img {
+        width: 70%;
+        height: 100%;
+        margin: auto;
+      }
+
+      .input-icon {
+        border: 1px solid #adadad;
+        min-height: 28px;
+        min-width: 28px;
+        max-height: 28px;
+        max-width: 28px;
+        text-align: center;
+        border-radius: 5px;
+        display: flex;
+        margin: auto;
+      }
+
+      .input-text {
+        display: flex;
+        float: left;
+        padding: none;
+        width: 100%;
+        padding: 0 8px;
+
+        margin: none;
+        margin-bottom: 8px;
+      }
+
+      .input-hp {
+        width: 100%;
+        height: auto;
+        padding: 4px 0;
+        margin: 0;
+        margin-left: 10px;
+        text-align: justify;
+        border-bottom: transparent 2px solid;
+      }
+
+      .input-hp h3 {
+        font-size: 12px;
+        margin: 0;
+        padding-bottom: 0;
+      }
+
+      .input-hp p {
+        font-size: 10px;
+        margin-top: 4px;
+        margin-bottom: 0;
+      }
+
+      .block-items {
+        width: 100%;
+        height: 245px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        flex-direction: column;
+        gap: 4px;
       }
     `,
   ];
 
   @state()
-  private search = '';
+  private _search = '';
+
+  @state()
+  private _index = 0;
+
+  protected firstUpdated(): void {
+    const input = this.shadowRoot.getElementById('input');
+    input.focus();
+  }
 
   connectedCallback(): void {
     super.connectedCallback();
@@ -35,21 +145,35 @@ export class BlockMenuElement extends MenuBase {
 
   private onKeyDownHandler = this.onKeyDown.bind(this);
   private onKeyDown(e: KeyboardEvent): void {
-    e.preventDefault();
     if (e.key === 'Backspace') {
-      if (!this.search) {
+      if (!this._search) {
+        e.preventDefault();
         this.closeMenu();
       }
-      this.search = this.search.slice(0, -1);
+      this._search = this._search.slice(0, -1);
     }
 
     if (e.key === 'Escape') {
       this.closeMenu();
     }
 
-    // Only single characters and no spaces or slashes
-    if (/^(?=\S)(?!\/)(.{1})$/.test(e.key)) {
-      this.search = this.search + e.key.toLowerCase();
+    if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      this._index = Math.max(0, this._index - 1);
+    }
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      this._index = Math.min(
+        searchCommands(this._search, 'block').length - 1,
+        this._index + 1
+      );
+    }
+
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      // TODO: This should be cashed
+      this.onSelectItem(searchCommands(this._search, 'block')[this._index]);
     }
   }
 
@@ -59,20 +183,49 @@ export class BlockMenuElement extends MenuBase {
   }
 
   private renderBlockItems(): TemplateResult[] {
-    const filteredItems = searchCommands(this.search);
+    const filteredItems = searchCommands(this._search, 'block');
+
+    this._index =
+      searchCommands(this._search, 'block').length === 0
+        ? 0
+        : Math.min(
+            this._index,
+            searchCommands(this._search, 'block').length - 1
+          );
 
     return filteredItems.map(
-      (editorCommand: EditorCommand) =>
-        html`<div @click=${() => this.onSelectItem(editorCommand)}>
-          ${editorCommand.name}${editorCommand.description}
+      (editorCommand: EditorCommand, index) =>
+        html`<div
+          @click=${() => this.onSelectItem(editorCommand)}
+          class="input-text ${index === this._index ? 'selected-item' : ''}">
+          <div class="input-icon">
+            <img src=${editorCommand.icon} alt="" />
+          </div>
+          <div class="input-hp">
+            <h3>${editorCommand.name}</h3>
+            <p>${editorCommand.description}</p>
+          </div>
         </div>`
     );
   }
 
+  private onInput(e: InputEvent) {
+    this._search = (e.target as HTMLInputElement).value;
+  }
+
   protected render(): TemplateResult {
     return html`<div id="block-menu">
-      <p>${this.search}</p>
-      <div>${this.renderBlockItems()}</div>
-    </div>`;
+      <div class="mainBlockMenu">
+        <div class="input-field">
+          <input
+            type="text"
+            id="input"
+            @input=${this.onInput}
+            name="input"
+            value=${this._search} />
+        </div>
+        <div class="block-items">${this.renderBlockItems()}</div>
+      </div>
+    </div> `;
   }
 }
