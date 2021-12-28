@@ -70,10 +70,10 @@ export class HoverMenuElement extends LitElement {
       }
 
       ul li ul li:hover {
-        background: #f5c1bc;
+        background: #1b264f;
       }
       ul li ul li div:hover {
-        color: #1b264f;
+        color: #f5c1bc;
       }
     `,
   ];
