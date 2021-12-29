@@ -7,6 +7,7 @@ export class ShortcutPanelElement extends LitElement {
   static styles = [
     css`
       :host {
+        font-family: 'Montserrat', sans-serif;
         display: flex;
         flex-direction: column;
         box-sizing: border-box;
@@ -19,9 +20,24 @@ export class ShortcutPanelElement extends LitElement {
         flex-direction: column;
       }
 
+      #get-started {
+        text-align: center;
+      }
+
+      #get-started-shortcut {
+        font-size: 2em;
+      }
+
       input {
         box-sizing: border-box;
+        outline: none;
         width: 100%;
+        font-size: inherit;
+        font-family: inherit;
+        padding: 6px 8px;
+        background: white;
+        border: solid 1px #c7c7c7;
+        border-radius: 2px;
         margin-bottom: 16px;
       }
 
@@ -31,10 +47,10 @@ export class ShortcutPanelElement extends LitElement {
 
       .shortcut {
         /* reset button styling */
+        font-size: 0.9em;
         background: none;
         border: none;
         width: 100%;
-        font-size: inherit;
         font-family: inherit;
         outline: none;
 
@@ -50,7 +66,7 @@ export class ShortcutPanelElement extends LitElement {
       }
 
       .shortcut-name {
-        font-weight: bold;
+        font-weight: 600;
       }
 
       .shortcut-keys {
@@ -81,7 +97,7 @@ export class ShortcutPanelElement extends LitElement {
   }
 
   private renderShortcutList(): TemplateResult[] {
-    const filtered = searchCommands(this.search, 'block');
+    const filtered = searchCommands(this.search);
 
     return filtered.map(
       (shortcut: EditorCommand) => html`${this.renderShortcut(shortcut)}`
@@ -94,9 +110,9 @@ export class ShortcutPanelElement extends LitElement {
 
   protected render(): TemplateResult {
     return html`<div id="shortcut-menu">
-      <div>
-        <h2>Get started</h2>
-        <p>ctrl + k</p>
+      <div id="get-started">
+        <h3 id="get-started-text">Get started</h3>
+        <p id="get-started-shortcut">ctrl + k</p>
       </div>
 
       <input @input=${this.onInput} value=${this.search} type="text" />

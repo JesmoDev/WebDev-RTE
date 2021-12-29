@@ -136,6 +136,9 @@ export class HoverMenuElement extends LitElement {
           <div @click=${() => editor.chain().focus().toggleStrike().run()}>
             <img src="src/img/icons/icon8-strikethrough-50.svg" alt="" />
           </div>
+          <div @click=${() => editor.chain().focus().toggleCode().run()}>
+            <img src="src/img/icons/icon8-code-24.svg" alt="" />
+          </div>
           <div @click=${this.handleLink}>
             <img src="src/img/icons/icon8-link-50.svg" alt="" />
           </div>

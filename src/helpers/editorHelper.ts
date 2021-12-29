@@ -57,13 +57,13 @@ export const initEditor = (
 
 export const searchCommands = (
   search: string,
-  tag: string
+  tag?: string
 ): EditorCommand[] => {
   const filtered = getCommands().filter(
     x =>
       (x.name.toLocaleLowerCase().includes(search) ||
         x.aliases.some(y => y.includes(search))) &&
-      x.tags.some(z => z.includes(tag))
+      (tag ? x.tags.some(z => z.includes(tag)) : true)
   );
 
   return filtered;
@@ -212,6 +212,51 @@ export const getCommands = (): EditorCommand[] => [
     keyboardShortcut: ['ctrl', 'shift', 'j'],
     command: () => editor.chain().focus().setTextAlign('justify').run(),
     tags: [],
+    icon: '',
+  },
+  {
+    name: 'bullet list',
+    description: 'add bullet list',
+    aliases: ['dot'],
+    keyboardShortcut: ['ctrl', 'shift', '8'],
+    command: () => editor.chain().focus().toggleBulletList().run(),
+    tags: ['block'],
+    icon: '',
+  },
+  {
+    name: 'ordered list',
+    description: 'add an ordered list',
+    aliases: ['numeric', 'number'],
+    keyboardShortcut: ['ctrl', 'shift', '7'],
+    command: () => editor.chain().focus().toggleOrderedList().run(),
+    tags: ['block'],
+    icon: '',
+  },
+  {
+    name: 'code block',
+    description: 'add a code block',
+    aliases: [],
+    keyboardShortcut: ['ctrl', 'alt', 'c'],
+    command: () => editor.chain().focus().toggleCodeBlock().run(),
+    tags: ['block'],
+    icon: '',
+  },
+  {
+    name: 'block quote',
+    description: 'add a block quote',
+    aliases: [],
+    keyboardShortcut: ['ctrl', 'shift', 'b'],
+    command: () => editor.chain().focus().toggleBlockquote().run(),
+    tags: ['block'],
+    icon: '',
+  },
+  {
+    name: 'horizontal rule',
+    description: 'add a horizontal rule',
+    aliases: ['line', 'break'],
+    keyboardShortcut: [],
+    command: () => editor.chain().focus().setHorizontalRule().run(),
+    tags: ['block'],
     icon: '',
   },
 ];

@@ -30,6 +30,7 @@ export class BlockMenuElement extends MenuBase {
       }
 
       .input-text {
+        font-family: 'Montserrat', sans-serif;
         position: relative;
         cursor: pointer;
         display: flex;

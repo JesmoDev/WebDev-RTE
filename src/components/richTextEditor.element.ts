@@ -76,13 +76,35 @@ export class RichTextEditorElement extends LitElement {
       }
 
       pre {
-        background: #e4e4e4;
+        background: #ecedec;
+        border-radius: 4px;
+        border: solid 1px #c7c7c7;
+        margin: 0;
+        width: 100%;
         padding: 16px;
+        white-space: pre-wrap; /* css-3 */
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: 'Montserrat', sans-serif;
+      }
+
+      code {
+        padding: 2px 4px;
+        border-radius: 4px;
+        background: #ecedec;
+        font-size: 0.8em;
+        font-family: 'Roboto Mono', monospace;
       }
 
       blockquote {
         position: relative;
-        border-left: 4px solid black;
+        border-left: 4px solid #3647ab;
         margin-left: 0;
         padding-left: 20px;
       }
