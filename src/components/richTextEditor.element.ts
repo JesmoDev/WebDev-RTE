@@ -85,6 +85,12 @@ export class RichTextEditorElement extends LitElement {
         white-space: pre-wrap; /* css-3 */
       }
 
+      pre code {
+        background: none;
+        padding: 0;
+        border-radius: 0;
+      }
+
       h1,
       h2,
       h3,
