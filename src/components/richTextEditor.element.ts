@@ -76,6 +76,7 @@ export class RichTextEditorElement extends LitElement {
       }
 
       pre {
+        box-sizing: border-box;
         background: #ecedec;
         border-radius: 4px;
         border: solid 1px #c7c7c7;
