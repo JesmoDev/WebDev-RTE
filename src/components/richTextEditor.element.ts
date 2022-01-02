@@ -1,10 +1,9 @@
 import '../main';
 import { LitElement, html, css, TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { customElement, state } from 'lit/decorators.js';
 import { Editor } from '@tiptap/core';
 import { initEditor } from '../helpers/editorHelper';
 import { MenuBase } from '../abstracts/MenuBase';
-import { HoverMenuElement } from './hoverMenu.element';
 @customElement('rich-text-editor')
 export class RichTextEditorElement extends LitElement {
   static styles = [

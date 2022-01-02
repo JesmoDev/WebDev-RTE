@@ -1,7 +1,7 @@
-import { LitElement, html, css, TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { html, css, TemplateResult } from 'lit';
+import { customElement, state } from 'lit/decorators.js';
 import { MenuBase } from '../abstracts/MenuBase';
-import { getCommands, editor } from '../helpers/editorHelper';
+import { editor } from '../helpers/editorHelper';
 
 @customElement('link-menu')
 export class LinkMenuElement extends MenuBase {
@@ -10,9 +10,6 @@ export class LinkMenuElement extends MenuBase {
     css`
       :host {
         padding: 12px;
-      }
-
-      #element {
       }
 
       input {
