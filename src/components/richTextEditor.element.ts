@@ -123,33 +123,12 @@ export class RichTextEditorElement extends LitElement {
   @state()
   private _currentMenu: MenuBase;
 
-  // NON STATE VARIABLES //
-  private lastSlashPosition = 0; // used to know where the / is when trying to close the block menu by deleting the / that triggered it
-  private lastCaretPosition = 0; // used to return to the correct position when refocusing the editor
-
   firstUpdated() {
     const mountElement = this.shadowRoot.getElementById('editor');
     const hoverMenu = this.shadowRoot.getElementById('hover-menu');
 
     this._editor = initEditor(this, mountElement, hoverMenu);
-    this._editor.on('update', () => this.onEditorUpdate());
-    this._editor.on('focus', () => this.onEditorFocus());
-    this._editor.on('blur', () => this.onEditorBlur());
-
     this._editor.view.focus();
-  }
-
-  private onEditorUpdate(): void {
-    // this.requestUpdate(); // This is only for the render and JSON previews
-  }
-
-  private onEditorFocus(): void {
-    // this._editor.view.focus();
-    // this._editor.commands.setTextSelection(this.lastCaretPosition);
-  }
-
-  private onEditorBlur(): void {
-    // this.lastCaretPosition = this.getCaretPos;
   }
 
   private onKeydown(e: KeyboardEvent): void {
