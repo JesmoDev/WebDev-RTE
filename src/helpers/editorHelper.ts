@@ -19,7 +19,6 @@ export interface EditorCommand {
 }
 
 let editor: Editor;
-
 let rte: RichTextEditorElement;
 
 export { editor, rte };
