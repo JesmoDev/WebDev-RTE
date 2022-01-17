@@ -173,7 +173,7 @@ export class RichTextEditorElement extends LitElement {
 
   protected render(): TemplateResult {
     return html`<div id="wrapper">
-      <div class="panel-left"></div>
+      <tutorial-panel></tutorial-panel>
       <div id="editor" @keydown=${this.onKeydown}></div>
       <div class="panel-right">
         <shortcut-panel></shortcut-panel>

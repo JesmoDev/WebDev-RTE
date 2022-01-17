@@ -47,7 +47,7 @@ export const initEditor = (
           types: ['heading', 'paragraph'],
         }),
       ],
-      content: exampleContent,
+      //content: exampleContent,
     });
     rte = rteElement;
     return editor;

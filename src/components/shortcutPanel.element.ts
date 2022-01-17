@@ -111,8 +111,7 @@ export class ShortcutPanelElement extends LitElement {
   protected render(): TemplateResult {
     return html`<div id="shortcut-menu">
       <div id="get-started">
-        <h3 id="get-started-text">Get started</h3>
-        <p id="get-started-shortcut">ctrl + k</p>
+        <p id="get-started-shortcut">Shortcuts</p>
       </div>
 
       <input @input=${this.onInput} value=${this.search} type="text" />
