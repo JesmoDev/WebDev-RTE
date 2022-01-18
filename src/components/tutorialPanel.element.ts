@@ -40,11 +40,13 @@ export class TutorialPanelElement extends LitElement {
       #how-to-h2 {
         text-align: center;
         font-weight: 300;
+        padding: none;
+        margin: none;
       }
 
       #how-to-h3 {
         text-align: center;
-        font-weight: 300;
+        font-weight: 400;
       }
 
       #how-to-start {
@@ -54,6 +56,7 @@ export class TutorialPanelElement extends LitElement {
         display: block;
         margin-left: auto;
         margin-right: auto;
+        padding-top: 10px;
       }
 
       #how-to-img-2 {
@@ -65,11 +68,12 @@ export class TutorialPanelElement extends LitElement {
 
       #how-to-hover {
         text-align: center;
-        padding-top: 10%;
+        padding-top: 5%;
       }
       #how-to-hover-para {
         text-align: center;
         font-style: italic;
+        font-weight: 300;
       }
 
       #element {
