@@ -1,1 +1,37 @@
-node_modules 
+## editors
+/.idea
+/.vscode
+
+## system files
+.DS_Store
+
+## npm
+/node_modules/
+/npm-debug.log
+
+## testing
+/coverage/
+
+## temp folders
+/.tmp/
+
+# build
+/_site/
+/packages/**/dist/
+/packages/**/lib/**/*.js
+/packages/**/lib/**/*.js.map
+/packages/**/lib/**/*.d.ts
+tsconfig.tsbuildinfo
+/out-tsc/
+/packages/**/node_modules/
+
+
+custom-elements.json
+/packages/uui-css/custom-properties.js
+/packages/uui-css/custom-properties.module.js
+storybook-static
+debug.log
+out-css
+*.log
+.eslintcache
+*.tgz
