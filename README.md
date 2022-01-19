@@ -1,5 +1,4 @@
 # WebDev-RTE
-#RTE
 
 # H1
 ## H2
