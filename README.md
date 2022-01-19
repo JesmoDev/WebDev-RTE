@@ -1,8 +1,9 @@
 # WebDev-RTE
 
-# H1
-## H2
-### H3
+## Installation
+
+ `npm install` 
+ 
 #### H4
 ##### H5
 ###### H6
