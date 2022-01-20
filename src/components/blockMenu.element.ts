@@ -199,7 +199,7 @@ export class BlockMenuElement extends MenuBase {
   }
 
   protected render(): TemplateResult {
-    return html`<div id="block-menu">
+    return html`<div id="block-menu" class="block">
       <div class="mainBlockMenu">
         <div class="input-field">
           <input

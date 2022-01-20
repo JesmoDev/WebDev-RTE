@@ -124,7 +124,7 @@ export class HoverMenuElement extends LitElement {
           </div>
         </div>
         <div id="mark-group">
-          <div @click=${() => editor.chain().focus().toggleBold().run()}>
+          <div class="123" @click=${() => editor.chain().focus().toggleBold().run()}>
             <img src="src/img/icons/icon8-bold-50.svg" alt="" />
           </div>
           <div @click=${() => editor.chain().focus().toggleItalic().run()}>

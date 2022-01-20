@@ -10,7 +10,8 @@
     "lint:prettier": "prettier \"**/*.js\" \"**/*.ts\" --check --ignore-path .gitignore",
     "format:prettier": "prettier \"**/*.js\" \"**/*.ts\" --write --ignore-path .gitignore",
     "lint": "npm run lint:eslint && npm run lint:prettier",
-    "format": "npm run format:eslint && npm run format:prettier"
+    "format": "npm run format:eslint && npm run format:prettier",
+    "cypress:open": "cypress open"
   },
   "keywords": [],
   "author": "",
@@ -31,6 +32,7 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.7.0",
     "@typescript-eslint/parser": "^5.7.0",
+    "cypress-shadow-dom": "^1.4.1",
     "eslint": "^8.5.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-import-resolver-typescript": "^2.5.0",

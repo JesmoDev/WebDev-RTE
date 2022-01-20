@@ -115,9 +115,9 @@ export class ShortcutPanelElement extends LitElement {
         <p id="get-started-shortcut">ctrl + k</p>
       </div>
 
-      <input @input=${this.onInput} value=${this.search} type="text" />
+      <input @input=${this.onInput} value=${this.search} type="text" class="input" />
 
-      <div id="shortcut-list">${this.renderShortcutList()}</div>
+      <div id="shortcut-list" class="list">${this.renderShortcutList()}</div>
     </div>`;
   }
 }
