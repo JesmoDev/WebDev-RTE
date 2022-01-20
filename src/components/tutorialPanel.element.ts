@@ -49,8 +49,6 @@ export class TutorialPanelElement extends LitElement {
         font-weight: 400;
       }
 
-      #how-to-start {
-      }
       #how-to-img {
         width: 35%;
         display: block;
@@ -75,27 +73,13 @@ export class TutorialPanelElement extends LitElement {
         font-style: italic;
         font-weight: 300;
       }
-
-      #element {
-      }
     `,
   ];
 
-  // Internal state with default value: "state default value".
-  // Change this to what you need, doesn't have to be called state.
   @state()
-  private state = 'state default value';
+  private tutorialShow = true;
 
-  // Property that can be accessed from outside component: "property default value".
-  // Change this to what you need, doesn't have to be called property.
-  @property({ type: String })
-  public property = 'property default value';
-
-  private myEvent(e: MouseEvent): void {
-    console.log('event fired, you pressed this element', e.target);
-  }
-
-  protected render(): TemplateResult {
+  renderTutorial() {
     return html`<div id="tutorial-menu">
       <div id="how-to">
         <h1 id="how-to-h1">HOW TO GET STARTED</h1>
@@ -109,4 +93,16 @@ export class TutorialPanelElement extends LitElement {
       </div>
     </div>`;
   }
+
+  protected render(): TemplateResult {
+    return html`<div>
+      <button
+        class="dropdown-header"
+        @click=${() => (this.tutorialShow = !this.tutorialShow)}>
+        Show/Hide
+      </button>
+      ${this.tutorialShow ? this.renderTutorial() : ''}
+    </div>`;
+  }
 }
+// ${this.tutorialShow ? this.renderTutorial() = If statement : '' = else statement}
