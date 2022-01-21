@@ -4,7 +4,7 @@ import '@umbraco-ui/uui-rich-text-editor/lib/index';
 
 export default {
   id: 'uui-rich-text-editor',
-  title: 'Rich Text Editor',
+  title: 'Inputs/Rich Text Editor',
   component: 'uui-rich-text-editor',
   parameters: {
     docs: {
