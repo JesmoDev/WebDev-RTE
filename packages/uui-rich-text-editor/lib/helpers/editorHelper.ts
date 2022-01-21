@@ -1,3 +1,4 @@
+/* eslint-disable import/no-named-as-default */
 import { Editor } from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
 import Underline from '@tiptap/extension-underline';
