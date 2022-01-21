@@ -15,5 +15,5 @@ export default {
   },
 };
 
-export const Overview: Story = props =>
+export const Overview: Story = () =>
   html`<uui-rich-text-editor></uui-rich-text-editor>`;
