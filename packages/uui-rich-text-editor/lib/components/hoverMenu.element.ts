@@ -1,7 +1,9 @@
+/* eslint-disable lit-a11y/click-events-have-key-events */
 import { html, css, TemplateResult, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { getCommands, editor, rte } from '../helpers/editorHelper';
 
+// @ts-ignore
 @customElement('hover-menu')
 export class HoverMenuElement extends LitElement {
   static styles = [

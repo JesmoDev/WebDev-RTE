@@ -3,7 +3,7 @@ import StarterKit from '@tiptap/starter-kit';
 import Underline from '@tiptap/extension-underline';
 import TextAlign from '@tiptap/extension-text-align';
 import Image from '@tiptap/extension-image';
-import { RichTextEditorElement } from '../components/richTextEditor.element';
+import { UUIRichTextEditorElement } from '../uui-rich-text-editor.element';
 import Link from '@tiptap/extension-link';
 import exampleContent from './exampleContent';
 import BubbleMenu from '@tiptap/extension-bubble-menu';
@@ -19,12 +19,12 @@ export interface EditorCommand {
 }
 
 let editor: Editor;
-let rte: RichTextEditorElement;
+let rte: UUIRichTextEditorElement;
 
 export { editor, rte };
 
 export const initEditor = (
-  rteElement: RichTextEditorElement,
+  rteElement: UUIRichTextEditorElement,
   mountElement: Element,
   hoverMenu: HTMLElement
 ): Editor => {
