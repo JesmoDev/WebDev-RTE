@@ -121,7 +121,7 @@ export const getCommands = (): EditorCommand[] => [
     keyboardShortcut: ['ctrl', 'alt', '0'],
     command: () => editor.commands.setParagraph(),
     tags: ['block'],
-    icon: 'src/img/icons/carbon_letter-aa-large-2.svg',
+    icon: 'packages/uui-rich-text-editor/lib/img/icons/carbon_letter-aa-large-2.svg',
   },
   {
     name: 'heading 1',
@@ -130,7 +130,7 @@ export const getCommands = (): EditorCommand[] => [
     keyboardShortcut: ['ctrl', 'alt', '1'],
     command: () => editor.chain().focus().toggleHeading({ level: 1 }).run(),
     tags: ['block'],
-    icon: 'src/img/icons/H1Vector.svg',
+    icon: 'packages/uui-rich-text-editor/lib/img/icons/H1Vector.svg',
   },
   {
     name: 'heading 2',
@@ -139,7 +139,7 @@ export const getCommands = (): EditorCommand[] => [
     keyboardShortcut: ['ctrl', 'alt', '2'],
     command: () => editor.chain().focus().toggleHeading({ level: 2 }).run(),
     tags: ['block'],
-    icon: 'src/img/icons/H2Vector.svg',
+    icon: 'packages/uui-rich-text-editor/lib/img/icons/H2Vector.svg',
   },
   {
     name: 'heading 3',
@@ -148,7 +148,7 @@ export const getCommands = (): EditorCommand[] => [
     keyboardShortcut: ['ctrl', 'alt', '3'],
     command: () => editor.chain().focus().toggleHeading({ level: 3 }).run(),
     tags: ['block'],
-    icon: 'src/img/icons/H3Vector.svg',
+    icon: 'packages/uui-rich-text-editor/lib/img/icons/H3Vector.svg',
   },
   {
     name: 'heading 4',
@@ -157,7 +157,7 @@ export const getCommands = (): EditorCommand[] => [
     keyboardShortcut: ['ctrl', 'alt', '4'],
     command: () => editor.chain().focus().toggleHeading({ level: 4 }).run(),
     tags: ['block'],
-    icon: 'src/img/icons/H4Vector.svg',
+    icon: 'packages/uui-rich-text-editor/lib/img/icons/H4Vector.svg',
   },
   {
     name: 'heading 5',
@@ -166,7 +166,7 @@ export const getCommands = (): EditorCommand[] => [
     keyboardShortcut: ['ctrl', 'alt', '5'],
     command: () => editor.chain().focus().toggleHeading({ level: 5 }).run(),
     tags: ['block'],
-    icon: 'src/img/icons/H5Vector.svg',
+    icon: 'packages/uui-rich-text-editor/lib/img/icons/H5Vector.svg',
   },
   {
     name: 'heading 6',
@@ -175,7 +175,7 @@ export const getCommands = (): EditorCommand[] => [
     keyboardShortcut: ['ctrl', 'alt', '6'],
     command: () => editor.chain().focus().toggleHeading({ level: 6 }).run(),
     tags: ['block'],
-    icon: 'src/img/icons/H6Vector.svg',
+    icon: 'packages/uui-rich-text-editor/lib/img/icons/H6Vector.svg',
   },
   {
     name: 'left align',

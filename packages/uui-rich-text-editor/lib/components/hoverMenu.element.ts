@@ -125,36 +125,54 @@ export class HoverMenuElement extends LitElement {
         </div>
         <div id="mark-group">
           <div @click=${() => editor.chain().focus().toggleBold().run()}>
-            <img src="src/img/icons/icon8-bold-50.svg" alt="" />
+            <img
+              src="packages/uui-rich-text-editor/lib/img/icons/icon8-bold-50.svg"
+              alt="" />
           </div>
           <div @click=${() => editor.chain().focus().toggleItalic().run()}>
-            <img src="src/img/icons/icon8-italic-50.svg" alt="" />
+            <img
+              src="packages/uui-rich-text-editor/lib/img/icons/icon8-italic-50.svg"
+              alt="" />
           </div>
           <div @click=${() => editor.chain().focus().toggleUnderline().run()}>
-            <img src="src/img/icons/icon8-underline-50.svg" alt="" />
+            <img
+              src="packages/uui-rich-text-editor/lib/img/icons/icon8-underline-50.svg"
+              alt="" />
           </div>
           <div @click=${() => editor.chain().focus().toggleStrike().run()}>
-            <img src="src/img/icons/icon8-strikethrough-50.svg" alt="" />
+            <img
+              src="packages/uui-rich-text-editor/lib/img/icons/icon8-strikethrough-50.svg"
+              alt="" />
           </div>
           <div @click=${() => editor.chain().focus().toggleCode().run()}>
-            <img src="src/img/icons/icon8-code-24.svg" alt="" />
+            <img
+              src="packages/uui-rich-text-editor/lib/img/icons/icon8-code-24.svg"
+              alt="" />
           </div>
           <div @click=${this.handleLink}>
-            <img src="src/img/icons/icon8-link-50.svg" alt="" />
+            <img
+              src="packages/uui-rich-text-editor/lib/img/icons/icon8-link-50.svg"
+              alt="" />
           </div>
         </div>
         <div id="alignment-group">
           <div
             @click=${() => editor.chain().focus().setTextAlign('left').run()}>
-            <img src="src/img/icons/icon8-align-left-50.svg" alt="" />
+            <img
+              src="packages/uui-rich-text-editor/lib/img/icons/icon8-align-left-50.svg"
+              alt="" />
           </div>
           <div
             @click=${() => editor.chain().focus().setTextAlign('center').run()}>
-            <img src="src/img/icons/icon8-align-justify-50.svg" alt="" />
+            <img
+              src="packages/uui-rich-text-editor/lib/img/icons/icon8-align-justify-50.svg"
+              alt="" />
           </div>
           <div
             @click=${() => editor.chain().focus().setTextAlign('right').run()}>
-            <img src="src/img/icons/icon8-align-right-50.svg" alt="" />
+            <img
+              src="packages/uui-rich-text-editor/lib/img/icons/icon8-align-right-50.svg"
+              alt="" />
           </div>
         </div>
       </div>
